@@ -1,0 +1,5973 @@
+task = sequence_classification
+
+network:
+task = sequence_classification
+13MultilayerNet
+------------------------------
+5 layers:
+10InputLayer "input" 1D (+) size 3
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_0_0" 1D (-) inputSize 120 outputSize 30 source "input" 90 peeps
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_0_1" 1D (+) inputSize 120 outputSize 30 source "input" 90 peeps
+13CollapseLayer "output_collapse" 0D size 10 source "hidden_0_1"
+29MulticlassClassificationLayer "output" 0D size 10 source "output_collapse"
+------------------------------
+10 connections:
+"bias_to_hidden_0_0" (120 wts)
+"hidden_0_0_to_hidden_0_0_delay_1" (3600 wts)
+"input_to_hidden_0_0" (360 wts)
+"bias_to_hidden_0_1" (120 wts)
+"hidden_0_1_to_hidden_0_1_delay_-1" (3600 wts)
+"input_to_hidden_0_1" (360 wts)
+"bias_to_output" (10 wts)
+"output_collapse_to_output" (copy)
+"hidden_0_0_to_output_collapse" (300 wts)
+"hidden_0_1_to_output_collapse" (300 wts)
+------------------------------
+bidirectional = true
+symmetry = false
+8950 weights
+
+setting random seed to 60773665
+
+8950 uninitialised weights randomised uniformly in [-0.1,0.1]
+trainer:
+epoch = 0
+savename = sequence_classification@2014.05.31-14.31.13.574989
+batchLearn = false
+seqsPerWeightUpdate = 1
+maxTestsNoBest = 30
+
+training data:
+numSequences = 905
+numTimesteps = 20652
+avg timesteps/seq = 22.8199
+1 filenames
+../datasets/3f_train_6.nc
+inputSize = 3
+outputSize = 10
+numDims = 1
+task = sequence_classification
+shuffled = true
+10 target labels
+0 0 (92 = 10.1657%)
+1 1 (96 = 10.6077%)
+2 2 (98 = 10.8287%)
+3 3 (112 = 12.3757%)
+4 4 (95 = 10.4972%)
+5 5 (90 = 9.94475%)
+6 6 (81 = 8.95028%)
+7 7 (85 = 9.39227%)
+8 8 (74 = 8.1768%)
+9 9 (82 = 9.06077%)
+totalTargetStringLength = 905
+------------------------------
+validation data:
+numSequences = 301
+numTimesteps = 6986
+avg timesteps/seq = 23.2093
+1 filenames
+../datasets/3f_validation_2.nc
+inputSize = 3
+outputSize = 10
+numDims = 1
+task = sequence_classification
+shuffled = false
+10 target labels
+0 0 (37 = 12.2924%)
+1 1 (41 = 13.6213%)
+2 2 (35 = 11.6279%)
+3 3 (15 = 4.98339%)
+4 4 (32 = 10.6312%)
+5 5 (32 = 10.6312%)
+6 6 (20 = 6.64452%)
+7 7 (19 = 6.31229%)
+8 8 (31 = 10.299%)
+9 9 (39 = 12.9568%)
+totalTargetStringLength = 301
+------------------------------
+test data:
+numSequences = 301
+numTimesteps = 7052
+avg timesteps/seq = 23.4286
+1 filenames
+../datasets/3f_test_2.nc
+inputSize = 3
+outputSize = 10
+numDims = 1
+task = sequence_classification
+shuffled = false
+10 target labels
+0 0 (36 = 11.9601%)
+1 1 (29 = 9.63455%)
+2 2 (25 = 8.30565%)
+3 3 (25 = 8.30565%)
+4 4 (27 = 8.9701%)
+5 5 (39 = 12.9568%)
+6 6 (29 = 9.63455%)
+7 7 (26 = 8.63787%)
+8 8 (31 = 10.299%)
+9 9 (34 = 11.2957%)
+totalTargetStringLength = 301
+
+------------------------------
+steepest descent
+learnRate = 0.0001
+momentum = 0.9
+------------------------------
+
+autosave filename sequence_classification@2014.05.31-14.31.13.574989.last.save
+best save filename root sequence_classification@2014.05.31-14.31.13.574989.best
+
+training...
+
+epoch 0 took 26.9691 seconds (0.0298001 secs/seq, 765.765 its/sec, 19.5343 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.793478
+_1 0.947917
+_2 0.826531
+_3 0.714286
+_4 0.694737
+_5 0.833333
+_6 0.839506
+_7 0.858824
+_8 0.783784
+_9 0.829268
+classificationError 80.9945%
+crossEntropyError 2.96966
+------------------------------
+validation errors:
+_0 1
+_1 1
+_2 0.2
+_3 1
+_4 0.65625
+_5 0.03125
+_6 1
+_7 0.210526
+_8 1
+_9 1
+classificationError 71.7608%
+crossEntropyError 2.3258
+------------------------------
+test errors:
+_0 1
+_1 1
+_2 0.4
+_3 1
+_4 0.777778
+_5 0.0769231
+_6 1
+_7 0.307692
+_8 1
+_9 1
+classificationError 75.0831%
+crossEntropyError 2.30037
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 1 took 25.5639 seconds (0.0282474 secs/seq, 807.859 its/sec, 20.6081 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.706522
+_1 0.916667
+_2 0.622449
+_3 0.625
+_4 0.473684
+_5 0.588889
+_6 0.82716
+_7 0.941176
+_8 0.689189
+_9 0.743902
+classificationError 70.8287%
+crossEntropyError 2.07236
+------------------------------
+validation errors:
+_0 0.891892
+_1 1
+_2 0.228571
+_3 0.733333
+_4 1
+_5 0.34375
+_6 0.2
+_7 1
+_8 0.967742
+_9 0.102564
+classificationError 64.1196%
+crossEntropyError 1.84052
+------------------------------
+test errors:
+_0 0.944444
+_1 1
+_2 0.6
+_3 0.76
+_4 1
+_5 0.666667
+_6 0.0344828
+_7 1
+_8 0.967742
+_9 0.0294118
+classificationError 69.103%
+crossEntropyError 2.04496
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 2 took 26.9033 seconds (0.0297274 secs/seq, 767.639 its/sec, 19.5821 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.75
+_1 0.822917
+_2 0.612245
+_3 0.589286
+_4 0.547368
+_5 0.588889
+_6 0.753086
+_7 0.870588
+_8 0.635135
+_9 0.646341
+classificationError 67.8453%
+crossEntropyError 1.92976
+------------------------------
+validation errors:
+_0 0.243243
+_1 1
+_2 1
+_3 1
+_4 1
+_5 0.9375
+_6 0.25
+_7 0.368421
+_8 1
+_9 1
+classificationError 81.0631%
+crossEntropyError 2.27248
+------------------------------
+test errors:
+_0 0.305556
+_1 1
+_2 1
+_3 1
+_4 1
+_5 1
+_6 0.0344828
+_7 0.307692
+_8 1
+_9 1
+classificationError 76.412%
+crossEntropyError 2.29907
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 3 took 25.6543 seconds (0.0283473 secs/seq, 805.01 its/sec, 20.5354 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.73913
+_1 0.708333
+_2 0.591837
+_3 0.553571
+_4 0.526316
+_5 0.544444
+_6 0.703704
+_7 0.823529
+_8 0.554054
+_9 0.585366
+classificationError 63.0939%
+crossEntropyError 1.82001
+------------------------------
+validation errors:
+_0 0.783784
+_1 0.731707
+_2 1
+_3 0.2
+_4 0.34375
+_5 0.21875
+_6 0.8
+_7 1
+_8 0.548387
+_9 0.410256
+classificationError 60.7973%
+crossEntropyError 1.77316
+------------------------------
+test errors:
+_0 0.777778
+_1 0.689655
+_2 1
+_3 0.04
+_4 0.481481
+_5 0.410256
+_6 0.896552
+_7 1
+_8 0.451613
+_9 0.470588
+classificationError 61.4618%
+crossEntropyError 1.75249
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 4 took 25.4829 seconds (0.0281579 secs/seq, 810.425 its/sec, 20.6736 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.53125
+_2 0.612245
+_3 0.491071
+_4 0.621053
+_5 0.533333
+_6 0.604938
+_7 0.788235
+_8 0.540541
+_9 0.609756
+classificationError 58.674%
+crossEntropyError 1.77389
+------------------------------
+validation errors:
+_0 1
+_1 1
+_2 0.4
+_3 0.733333
+_4 0.5
+_5 0.1875
+_6 0.7
+_7 0.0526316
+_8 1
+_9 0.153846
+classificationError 58.804%
+crossEntropyError 2.48848
+------------------------------
+test errors:
+_0 1
+_1 1
+_2 0.64
+_3 0.6
+_4 0.666667
+_5 0.307692
+_6 0.482759
+_7 0.307692
+_8 1
+_9 0.0294118
+classificationError 59.8007%
+crossEntropyError 2.44276
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+
+epoch 5 took 26.1201 seconds (0.028862 secs/seq, 790.655 its/sec, 20.1692 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.641304
+_1 0.6875
+_2 0.591837
+_3 0.517857
+_4 0.442105
+_5 0.6
+_6 0.567901
+_7 0.729412
+_8 0.540541
+_9 0.47561
+classificationError 57.9006%
+crossEntropyError 1.74292
+------------------------------
+validation errors:
+_0 0.486486
+_1 0.634146
+_2 0.914286
+_3 0.266667
+_4 0.125
+_5 0.28125
+_6 0.55
+_7 0.894737
+_8 0.419355
+_9 0.333333
+classificationError 48.8372%
+crossEntropyError 1.41056
+------------------------------
+test errors:
+_0 0.611111
+_1 0.551724
+_2 0.96
+_3 0.16
+_4 0.259259
+_5 0.435897
+_6 0.586207
+_7 1
+_8 0.225806
+_9 0.323529
+classificationError 50.1661%
+crossEntropyError 1.61548
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 6 took 25.5113 seconds (0.0281893 secs/seq, 809.523 its/sec, 20.6505 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.673913
+_1 0.677083
+_2 0.602041
+_3 0.491071
+_4 0.526316
+_5 0.533333
+_6 0.654321
+_7 0.741176
+_8 0.621622
+_9 0.536585
+classificationError 60.221%
+crossEntropyError 1.80733
+------------------------------
+validation errors:
+_0 0.72973
+_1 0.219512
+_2 0.914286
+_3 0.133333
+_4 0.34375
+_5 0.5
+_6 0.75
+_7 0.263158
+_8 0.774194
+_9 0.692308
+classificationError 55.814%
+crossEntropyError 1.65457
+------------------------------
+test errors:
+_0 0.861111
+_1 0.310345
+_2 0.88
+_3 0.16
+_4 0.481481
+_5 0.564103
+_6 0.482759
+_7 0.307692
+_8 0.870968
+_9 0.705882
+classificationError 57.8073%
+crossEntropyError 1.67658
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 7 took 25.3886 seconds (0.0280537 secs/seq, 813.436 its/sec, 20.7504 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.630435
+_1 0.520833
+_2 0.612245
+_3 0.508929
+_4 0.589474
+_5 0.544444
+_6 0.617284
+_7 0.694118
+_8 0.486486
+_9 0.5
+classificationError 57.0166%
+crossEntropyError 1.74188
+------------------------------
+validation errors:
+_0 0.540541
+_1 0.658537
+_2 0.285714
+_3 0.866667
+_4 0.15625
+_5 0.9375
+_6 1
+_7 0.368421
+_8 0.967742
+_9 1
+classificationError 66.7774%
+crossEntropyError 2.11984
+------------------------------
+test errors:
+_0 0.611111
+_1 0.724138
+_2 0.48
+_3 0.96
+_4 0.222222
+_5 1
+_6 1
+_7 0.346154
+_8 0.935484
+_9 1
+classificationError 74.7508%
+crossEntropyError 2.37486
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 8 took 25.3525 seconds (0.0280138 secs/seq, 814.594 its/sec, 20.7799 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.586957
+_1 0.635417
+_2 0.520408
+_3 0.508929
+_4 0.505263
+_5 0.544444
+_6 0.604938
+_7 0.764706
+_8 0.72973
+_9 0.682927
+classificationError 60.1105%
+crossEntropyError 1.79457
+------------------------------
+validation errors:
+_0 0.162162
+_1 0.634146
+_2 0.942857
+_3 0.266667
+_4 0.34375
+_5 0.65625
+_6 0.7
+_7 1
+_8 1
+_9 0.564103
+classificationError 62.1262%
+crossEntropyError 1.96902
+------------------------------
+test errors:
+_0 0.138889
+_1 0.689655
+_2 0.96
+_3 0.12
+_4 0.37037
+_5 0.794872
+_6 0.517241
+_7 1
+_8 1
+_9 0.676471
+classificationError 62.4585%
+crossEntropyError 2.09455
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 9 took 25.3976 seconds (0.0280636 secs/seq, 813.148 its/sec, 20.743 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.614583
+_2 0.632653
+_3 0.535714
+_4 0.494737
+_5 0.5
+_6 0.604938
+_7 0.729412
+_8 0.648649
+_9 0.560976
+classificationError 58.1215%
+crossEntropyError 1.71912
+------------------------------
+validation errors:
+_0 0.648649
+_1 0.926829
+_2 0.8
+_3 0.933333
+_4 0.4375
+_5 0.375
+_6 0.2
+_7 0.842105
+_8 0.354839
+_9 0.0769231
+classificationError 54.485%
+crossEntropyError 1.61144
+------------------------------
+test errors:
+_0 0.722222
+_1 0.896552
+_2 0.88
+_3 0.92
+_4 0.62963
+_5 0.666667
+_6 0.0689655
+_7 1
+_8 0.16129
+_9 0
+classificationError 57.4751%
+crossEntropyError 1.76417
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 10 took 25.5113 seconds (0.0281892 secs/seq, 809.525 its/sec, 20.6506 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.576087
+_1 0.572917
+_2 0.489796
+_3 0.4375
+_4 0.410526
+_5 0.422222
+_6 0.641975
+_7 0.764706
+_8 0.581081
+_9 0.560976
+classificationError 53.9227%
+crossEntropyError 1.63899
+------------------------------
+validation errors:
+_0 0.567568
+_1 0.341463
+_2 0.828571
+_3 0.8
+_4 0.1875
+_5 0.375
+_6 0.65
+_7 0.421053
+_8 0.322581
+_9 0.717949
+classificationError 50.8306%
+crossEntropyError 1.55119
+------------------------------
+test errors:
+_0 0.638889
+_1 0.482759
+_2 0.96
+_3 0.8
+_4 0.37037
+_5 0.487179
+_6 0.586207
+_7 0.461538
+_8 0.322581
+_9 0.794118
+classificationError 58.4718%
+crossEntropyError 1.61361
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 11 took 25.4938 seconds (0.0281699 secs/seq, 810.08 its/sec, 20.6647 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.543478
+_1 0.541667
+_2 0.612245
+_3 0.455357
+_4 0.473684
+_5 0.433333
+_6 0.592593
+_7 0.717647
+_8 0.648649
+_9 0.621951
+classificationError 55.8011%
+crossEntropyError 1.66363
+------------------------------
+validation errors:
+_0 0.189189
+_1 0.268293
+_2 0.971429
+_3 0.666667
+_4 0.3125
+_5 0.3125
+_6 0.8
+_7 0.842105
+_8 0.258065
+_9 0.205128
+classificationError 43.1894%
+crossEntropyError 1.46327
+------------------------------
+test errors:
+_0 0.472222
+_1 0.413793
+_2 0.96
+_3 0.44
+_4 0.37037
+_5 0.564103
+_6 0.724138
+_7 0.923077
+_8 0.225806
+_9 0.147059
+classificationError 50.8306%
+crossEntropyError 1.62538
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+
+epoch 12 took 25.4607 seconds (0.0281334 secs/seq, 811.133 its/sec, 20.6916 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.572917
+_2 0.642857
+_3 0.5
+_4 0.4
+_5 0.411111
+_6 0.506173
+_7 0.741176
+_8 0.513514
+_9 0.597561
+classificationError 54.3646%
+crossEntropyError 1.66041
+------------------------------
+validation errors:
+_0 0.648649
+_1 0.560976
+_2 0.771429
+_3 0.533333
+_4 0.28125
+_5 0.125
+_6 0.75
+_7 0
+_8 0.870968
+_9 0.948718
+classificationError 57.8073%
+crossEntropyError 1.78562
+------------------------------
+test errors:
+_0 0.666667
+_1 0.724138
+_2 0.92
+_3 0.44
+_4 0.407407
+_5 0.128205
+_6 0.448276
+_7 0
+_8 0.774194
+_9 0.882353
+classificationError 53.8206%
+crossEntropyError 1.62055
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 13 took 25.412 seconds (0.0280796 secs/seq, 812.686 its/sec, 20.7312 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.619565
+_1 0.447917
+_2 0.571429
+_3 0.5625
+_4 0.389474
+_5 0.422222
+_6 0.469136
+_7 0.752941
+_8 0.581081
+_9 0.609756
+classificationError 54.0331%
+crossEntropyError 1.60697
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.195122
+_2 0.657143
+_3 0.133333
+_4 0.84375
+_5 0.28125
+_6 0.3
+_7 0.0526316
+_8 0.451613
+_9 0.615385
+classificationError 43.5216%
+crossEntropyError 1.52976
+------------------------------
+test errors:
+_0 0.75
+_1 0.241379
+_2 0.76
+_3 0.2
+_4 1
+_5 0.487179
+_6 0.275862
+_7 0.269231
+_8 0.387097
+_9 0.558824
+classificationError 49.8339%
+crossEntropyError 1.58465
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 14 took 25.5852 seconds (0.0282709 secs/seq, 807.186 its/sec, 20.5909 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.532609
+_1 0.552083
+_2 0.602041
+_3 0.5
+_4 0.389474
+_5 0.455556
+_6 0.555556
+_7 0.694118
+_8 0.513514
+_9 0.670732
+classificationError 54.3646%
+crossEntropyError 1.62658
+------------------------------
+validation errors:
+_0 0.945946
+_1 0.560976
+_2 0.2
+_3 0.933333
+_4 0.59375
+_5 0.5625
+_6 0.75
+_7 0.157895
+_8 0.516129
+_9 0.358974
+classificationError 54.485%
+crossEntropyError 1.65582
+------------------------------
+test errors:
+_0 1
+_1 0.724138
+_2 0.24
+_3 0.96
+_4 0.740741
+_5 0.794872
+_6 0.758621
+_7 0.269231
+_8 0.451613
+_9 0.411765
+classificationError 64.7841%
+crossEntropyError 1.89765
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 15 took 25.7838 seconds (0.0284904 secs/seq, 800.967 its/sec, 20.4323 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.641304
+_1 0.479167
+_2 0.642857
+_3 0.616071
+_4 0.410526
+_5 0.455556
+_6 0.518519
+_7 0.741176
+_8 0.513514
+_9 0.536585
+classificationError 55.6906%
+crossEntropyError 1.6579
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.463415
+_2 0.742857
+_3 0.133333
+_4 0.375
+_5 0.71875
+_6 0.85
+_7 0.894737
+_8 0.387097
+_9 0.384615
+classificationError 50.8306%
+crossEntropyError 1.53528
+------------------------------
+test errors:
+_0 0.388889
+_1 0.62069
+_2 0.76
+_3 0.08
+_4 0.259259
+_5 0.897436
+_6 0.827586
+_7 0.769231
+_8 0.451613
+_9 0.352941
+classificationError 54.8173%
+crossEntropyError 1.61835
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 16 took 25.7208 seconds (0.0284207 secs/seq, 802.931 its/sec, 20.4824 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.608696
+_1 0.489583
+_2 0.602041
+_3 0.491071
+_4 0.347368
+_5 0.455556
+_6 0.604938
+_7 0.705882
+_8 0.5
+_9 0.634146
+classificationError 54.0331%
+crossEntropyError 1.51676
+------------------------------
+validation errors:
+_0 0.567568
+_1 0.219512
+_2 0.657143
+_3 0.266667
+_4 0.34375
+_5 0.375
+_6 0.65
+_7 0.157895
+_8 0.193548
+_9 0.358974
+classificationError 38.5382%
+crossEntropyError 1.36516
+------------------------------
+test errors:
+_0 0.916667
+_1 0.344828
+_2 0.72
+_3 0.2
+_4 0.259259
+_5 0.615385
+_6 0.37931
+_7 0.230769
+_8 0.193548
+_9 0.470588
+classificationError 45.1827%
+crossEntropyError 1.4579
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 17 took 25.422 seconds (0.0280906 secs/seq, 812.367 its/sec, 20.7231 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.608696
+_1 0.4375
+_2 0.479592
+_3 0.517857
+_4 0.357895
+_5 0.488889
+_6 0.481481
+_7 0.541176
+_8 0.459459
+_9 0.609756
+classificationError 49.7238%
+crossEntropyError 1.51269
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.170732
+_2 0.457143
+_3 0.933333
+_4 0.15625
+_5 0.25
+_6 0.45
+_7 0.947368
+_8 0.741935
+_9 0.487179
+classificationError 42.8571%
+crossEntropyError 1.35207
+------------------------------
+test errors:
+_0 0.416667
+_1 0.103448
+_2 0.6
+_3 0.96
+_4 0.185185
+_5 0.564103
+_6 0.482759
+_7 1
+_8 0.580645
+_9 0.470588
+classificationError 52.4917%
+crossEntropyError 1.46182
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 18 took 25.3736 seconds (0.0280371 secs/seq, 813.918 its/sec, 20.7626 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.458333
+_2 0.510204
+_3 0.4375
+_4 0.357895
+_5 0.488889
+_6 0.493827
+_7 0.658824
+_8 0.486486
+_9 0.5
+classificationError 49.2818%
+crossEntropyError 1.47377
+------------------------------
+validation errors:
+_0 0.486486
+_1 0.146341
+_2 0.685714
+_3 0.8
+_4 0.0625
+_5 0.125
+_6 0.7
+_7 1
+_8 0.741935
+_9 0.333333
+classificationError 44.8505%
+crossEntropyError 1.4964
+------------------------------
+test errors:
+_0 0.611111
+_1 0.344828
+_2 0.72
+_3 0.92
+_4 0.148148
+_5 0.179487
+_6 0.586207
+_7 1
+_8 0.548387
+_9 0.352941
+classificationError 51.8272%
+crossEntropyError 1.51129
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 19 took 25.399 seconds (0.0280652 secs/seq, 813.101 its/sec, 20.7418 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.619565
+_1 0.385417
+_2 0.510204
+_3 0.464286
+_4 0.347368
+_5 0.422222
+_6 0.444444
+_7 0.588235
+_8 0.459459
+_9 0.47561
+classificationError 47.0718%
+crossEntropyError 1.41929
+------------------------------
+validation errors:
+_0 0.756757
+_1 0.390244
+_2 0.571429
+_3 0.2
+_4 0.15625
+_5 0.15625
+_6 0.85
+_7 0.631579
+_8 0.451613
+_9 0.538462
+classificationError 46.8439%
+crossEntropyError 1.47073
+------------------------------
+test errors:
+_0 0.861111
+_1 0.413793
+_2 0.76
+_3 0.2
+_4 0.148148
+_5 0.307692
+_6 0.896552
+_7 0.692308
+_8 0.258065
+_9 0.441176
+classificationError 49.8339%
+crossEntropyError 1.4299
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 20 took 25.5512 seconds (0.0282334 secs/seq, 808.259 its/sec, 20.6183 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.597826
+_1 0.354167
+_2 0.479592
+_3 0.357143
+_4 0.326316
+_5 0.444444
+_6 0.54321
+_7 0.658824
+_8 0.486486
+_9 0.426829
+classificationError 46.1878%
+crossEntropyError 1.43145
+------------------------------
+validation errors:
+_0 0.432432
+_1 0.341463
+_2 0.571429
+_3 0.666667
+_4 0.375
+_5 0.53125
+_6 0.7
+_7 1
+_8 0.193548
+_9 0.128205
+classificationError 44.186%
+crossEntropyError 1.36344
+------------------------------
+test errors:
+_0 0.638889
+_1 0.310345
+_2 0.84
+_3 0.48
+_4 0.444444
+_5 0.666667
+_6 0.655172
+_7 0.961538
+_8 0.16129
+_9 0.0588235
+classificationError 51.1628%
+crossEntropyError 1.50225
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 21 took 25.4944 seconds (0.0281706 secs/seq, 810.061 its/sec, 20.6643 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.333333
+_2 0.530612
+_3 0.4375
+_4 0.389474
+_5 0.444444
+_6 0.419753
+_7 0.670588
+_8 0.378378
+_9 0.439024
+classificationError 46.0773%
+crossEntropyError 1.39429
+------------------------------
+validation errors:
+_0 0.810811
+_1 0.463415
+_2 0.314286
+_3 0.866667
+_4 0.15625
+_5 0.15625
+_6 0.7
+_7 0.263158
+_8 0.548387
+_9 0.230769
+classificationError 42.5249%
+crossEntropyError 1.63065
+------------------------------
+test errors:
+_0 0.972222
+_1 0.586207
+_2 0.32
+_3 0.96
+_4 0.296296
+_5 0.230769
+_6 0.655172
+_7 0.576923
+_8 0.548387
+_9 0.323529
+classificationError 54.1528%
+crossEntropyError 1.74061
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 22 took 25.3372 seconds (0.027997 secs/seq, 815.085 its/sec, 20.7924 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.385417
+_2 0.418367
+_3 0.491071
+_4 0.389474
+_5 0.411111
+_6 0.604938
+_7 0.494118
+_8 0.418919
+_9 0.414634
+classificationError 45.4144%
+crossEntropyError 1.42285
+------------------------------
+validation errors:
+_0 0.351351
+_1 0.121951
+_2 0.571429
+_3 0.733333
+_4 0.0625
+_5 0.28125
+_6 0.55
+_7 0.947368
+_8 0.645161
+_9 0.282051
+classificationError 39.8671%
+crossEntropyError 1.39081
+------------------------------
+test errors:
+_0 0.472222
+_1 0.241379
+_2 0.56
+_3 0.72
+_4 0.259259
+_5 0.487179
+_6 0.551724
+_7 1
+_8 0.612903
+_9 0.264706
+classificationError 50.4983%
+crossEntropyError 1.42418
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 23 took 25.7491 seconds (0.028452 secs/seq, 802.049 its/sec, 20.4599 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.364583
+_2 0.5
+_3 0.4375
+_4 0.347368
+_5 0.411111
+_6 0.382716
+_7 0.588235
+_8 0.364865
+_9 0.439024
+classificationError 43.4254%
+crossEntropyError 1.35787
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.585366
+_2 0.542857
+_3 0.266667
+_4 0.125
+_5 0.46875
+_6 0.7
+_7 0.947368
+_8 0.516129
+_9 0.769231
+classificationError 50.8306%
+crossEntropyError 1.49211
+------------------------------
+test errors:
+_0 0.305556
+_1 0.689655
+_2 0.48
+_3 0.36
+_4 0.222222
+_5 0.615385
+_6 0.586207
+_7 0.961538
+_8 0.419355
+_9 0.941176
+classificationError 56.1462%
+crossEntropyError 1.55897
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 24 took 25.7208 seconds (0.0284208 secs/seq, 802.929 its/sec, 20.4823 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.576087
+_1 0.302083
+_2 0.540816
+_3 0.464286
+_4 0.326316
+_5 0.388889
+_6 0.395062
+_7 0.705882
+_8 0.5
+_9 0.402439
+classificationError 45.8564%
+crossEntropyError 1.44049
+------------------------------
+validation errors:
+_0 0.0540541
+_1 0.292683
+_2 0.285714
+_3 1
+_4 0.4375
+_5 0.90625
+_6 0.55
+_7 0.421053
+_8 0.83871
+_9 0.846154
+classificationError 53.1561%
+crossEntropyError 1.65748
+------------------------------
+test errors:
+_0 0.0833333
+_1 0.482759
+_2 0.48
+_3 0.88
+_4 0.592593
+_5 0.923077
+_6 0.275862
+_7 0.461538
+_8 0.870968
+_9 0.705882
+classificationError 57.8073%
+crossEntropyError 1.6944
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 25 took 25.5675 seconds (0.0282513 secs/seq, 807.746 its/sec, 20.6052 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.40625
+_2 0.520408
+_3 0.508929
+_4 0.315789
+_5 0.5
+_6 0.592593
+_7 0.588235
+_8 0.540541
+_9 0.560976
+classificationError 50.6077%
+crossEntropyError 1.55256
+------------------------------
+validation errors:
+_0 0.513514
+_1 0.097561
+_2 0.571429
+_3 0.6
+_4 0.3125
+_5 0.53125
+_6 0.8
+_7 0.421053
+_8 0.387097
+_9 0.205128
+classificationError 40.8638%
+crossEntropyError 1.38773
+------------------------------
+test errors:
+_0 0.722222
+_1 0.172414
+_2 0.72
+_3 0.64
+_4 0.222222
+_5 0.615385
+_6 0.758621
+_7 0.5
+_8 0.322581
+_9 0.0882353
+classificationError 47.5083%
+crossEntropyError 1.46528
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 26 took 25.8116 seconds (0.0285211 secs/seq, 800.107 its/sec, 20.4103 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.586957
+_1 0.364583
+_2 0.561224
+_3 0.4375
+_4 0.389474
+_5 0.444444
+_6 0.518519
+_7 0.576471
+_8 0.540541
+_9 0.45122
+classificationError 48.3978%
+crossEntropyError 1.46341
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.146341
+_2 0.657143
+_3 0.4
+_4 0.21875
+_5 0.53125
+_6 0.55
+_7 0.736842
+_8 0.709677
+_9 0.179487
+classificationError 40.5316%
+crossEntropyError 1.32187
+------------------------------
+test errors:
+_0 0.5
+_1 0.206897
+_2 0.8
+_3 0.2
+_4 0.222222
+_5 0.692308
+_6 0.448276
+_7 0.846154
+_8 0.709677
+_9 0.0882353
+classificationError 47.1761%
+crossEntropyError 1.42141
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 27 took 25.6807 seconds (0.0283765 secs/seq, 804.183 its/sec, 20.5143 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.322917
+_2 0.418367
+_3 0.419643
+_4 0.294737
+_5 0.388889
+_6 0.444444
+_7 0.423529
+_8 0.486486
+_9 0.329268
+classificationError 40.7735%
+crossEntropyError 1.25745
+------------------------------
+validation errors:
+_0 0.324324
+_1 0.243902
+_2 0.914286
+_3 0.6
+_4 0.09375
+_5 0.375
+_6 0.6
+_7 0.894737
+_8 0.483871
+_9 0.179487
+classificationError 42.8571%
+crossEntropyError 1.49225
+------------------------------
+test errors:
+_0 0.5
+_1 0.241379
+_2 0.96
+_3 0.52
+_4 0.148148
+_5 0.435897
+_6 0.413793
+_7 0.923077
+_8 0.290323
+_9 0.352941
+classificationError 46.5116%
+crossEntropyError 1.43753
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 28 took 25.3394 seconds (0.0279994 secs/seq, 815.014 its/sec, 20.7906 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.333333
+_2 0.489796
+_3 0.464286
+_4 0.315789
+_5 0.344444
+_6 0.54321
+_7 0.564706
+_8 0.472973
+_9 0.378049
+classificationError 44.5304%
+crossEntropyError 1.37081
+------------------------------
+validation errors:
+_0 0.648649
+_1 0.195122
+_2 0.342857
+_3 0.6
+_4 0.125
+_5 0.3125
+_6 0.65
+_7 0.684211
+_8 0.516129
+_9 0.538462
+classificationError 43.1894%
+crossEntropyError 1.45082
+------------------------------
+test errors:
+_0 0.777778
+_1 0.344828
+_2 0.48
+_3 0.8
+_4 0.148148
+_5 0.435897
+_6 0.413793
+_7 0.346154
+_8 0.516129
+_9 0.588235
+classificationError 49.1694%
+crossEntropyError 1.49717
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 29 took 25.4388 seconds (0.0281091 secs/seq, 811.832 its/sec, 20.7094 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.684783
+_1 0.3125
+_2 0.520408
+_3 0.383929
+_4 0.305263
+_5 0.377778
+_6 0.493827
+_7 0.494118
+_8 0.567568
+_9 0.304878
+classificationError 44.0884%
+crossEntropyError 1.40426
+------------------------------
+validation errors:
+_0 0.405405
+_1 0.219512
+_2 0.742857
+_3 0.2
+_4 0.21875
+_5 0.8125
+_6 0.5
+_7 0.368421
+_8 0.0967742
+_9 0.897436
+classificationError 46.8439%
+crossEntropyError 1.60375
+------------------------------
+test errors:
+_0 0.666667
+_1 0.310345
+_2 0.88
+_3 0.2
+_4 0.222222
+_5 0.897436
+_6 0.482759
+_7 0.5
+_8 0.322581
+_9 0.911765
+classificationError 56.1462%
+crossEntropyError 1.66615
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 30 took 25.2445 seconds (0.0278945 secs/seq, 818.079 its/sec, 20.8688 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.354167
+_2 0.459184
+_3 0.339286
+_4 0.242105
+_5 0.377778
+_6 0.530864
+_7 0.541176
+_8 0.472973
+_9 0.317073
+classificationError 41.547%
+crossEntropyError 1.31998
+------------------------------
+validation errors:
+_0 0.432432
+_1 0.292683
+_2 0.428571
+_3 0.133333
+_4 0.1875
+_5 0.4375
+_6 0.6
+_7 0.578947
+_8 0.193548
+_9 0.410256
+classificationError 36.5449%
+crossEntropyError 1.2946
+------------------------------
+test errors:
+_0 0.666667
+_1 0.37931
+_2 0.56
+_3 0.48
+_4 0.185185
+_5 0.641026
+_6 0.586207
+_7 0.730769
+_8 0.193548
+_9 0.205882
+classificationError 46.5116%
+crossEntropyError 1.30046
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 31 took 25.407 seconds (0.0280741 secs/seq, 812.846 its/sec, 20.7353 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.554348
+_1 0.291667
+_2 0.418367
+_3 0.294643
+_4 0.273684
+_5 0.411111
+_6 0.469136
+_7 0.564706
+_8 0.459459
+_9 0.256098
+classificationError 39.4475%
+crossEntropyError 1.18113
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.0731707
+_2 0.542857
+_3 0.733333
+_4 0.15625
+_5 0.25
+_6 0.65
+_7 0.210526
+_8 0.354839
+_9 0.358974
+classificationError 34.8837%
+crossEntropyError 1.27903
+------------------------------
+test errors:
+_0 0.722222
+_1 0.206897
+_2 0.52
+_3 0.8
+_4 0.148148
+_5 0.282051
+_6 0.517241
+_7 0.0769231
+_8 0.354839
+_9 0.294118
+classificationError 39.2027%
+crossEntropyError 1.32843
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 32 took 25.3515 seconds (0.0280127 secs/seq, 814.627 its/sec, 20.7807 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.333333
+_2 0.479592
+_3 0.357143
+_4 0.294737
+_5 0.433333
+_6 0.493827
+_7 0.494118
+_8 0.378378
+_9 0.317073
+classificationError 40.221%
+crossEntropyError 1.23689
+------------------------------
+validation errors:
+_0 0.675676
+_1 0.121951
+_2 0.514286
+_3 0.4
+_4 0.46875
+_5 0.09375
+_6 0.4
+_7 0.421053
+_8 0.548387
+_9 0.205128
+classificationError 37.5415%
+crossEntropyError 1.3782
+------------------------------
+test errors:
+_0 0.805556
+_1 0.172414
+_2 0.64
+_3 0.32
+_4 0.666667
+_5 0.230769
+_6 0.241379
+_7 0.538462
+_8 0.645161
+_9 0.0882353
+classificationError 42.8571%
+crossEntropyError 1.43923
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 33 took 25.2708 seconds (0.0279235 secs/seq, 817.229 its/sec, 20.8471 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.239583
+_2 0.316327
+_3 0.321429
+_4 0.294737
+_5 0.366667
+_6 0.469136
+_7 0.494118
+_8 0.432432
+_9 0.292683
+classificationError 36.7956%
+crossEntropyError 1.22601
+------------------------------
+validation errors:
+_0 0.918919
+_1 0.195122
+_2 0.714286
+_3 0.133333
+_4 0.21875
+_5 1
+_6 0.7
+_7 0.578947
+_8 0.0322581
+_9 0.282051
+classificationError 48.1728%
+crossEntropyError 1.8499
+------------------------------
+test errors:
+_0 0.972222
+_1 0.344828
+_2 0.8
+_3 0.24
+_4 0.185185
+_5 0.923077
+_6 0.517241
+_7 0.615385
+_8 0.0967742
+_9 0.205882
+classificationError 50.8306%
+crossEntropyError 1.97196
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 34 took 25.9061 seconds (0.0286256 secs/seq, 797.186 its/sec, 20.3358 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.260417
+_2 0.428571
+_3 0.339286
+_4 0.273684
+_5 0.422222
+_6 0.407407
+_7 0.564706
+_8 0.283784
+_9 0.317073
+classificationError 38.5635%
+crossEntropyError 1.25158
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.195122
+_2 0.6
+_3 0.266667
+_4 0.09375
+_5 0.15625
+_6 0.5
+_7 0.947368
+_8 0.580645
+_9 0.179487
+classificationError 34.5515%
+crossEntropyError 1.3037
+------------------------------
+test errors:
+_0 0.388889
+_1 0.310345
+_2 0.72
+_3 0.28
+_4 0.185185
+_5 0.25641
+_6 0.37931
+_7 0.923077
+_8 0.322581
+_9 0.147059
+classificationError 37.5415%
+crossEntropyError 1.21869
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+
+epoch 35 took 25.8636 seconds (0.0285785 secs/seq, 798.498 its/sec, 20.3693 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.586957
+_1 0.322917
+_2 0.438776
+_3 0.330357
+_4 0.284211
+_5 0.411111
+_6 0.518519
+_7 0.588235
+_8 0.527027
+_9 0.231707
+classificationError 41.8785%
+crossEntropyError 1.31352
+------------------------------
+validation errors:
+_0 0.72973
+_1 0.0731707
+_2 0.857143
+_3 0.666667
+_4 0.28125
+_5 0.15625
+_6 0.9
+_7 0.157895
+_8 0.935484
+_9 0.333333
+classificationError 48.8372%
+crossEntropyError 1.65566
+------------------------------
+test errors:
+_0 0.833333
+_1 0.137931
+_2 0.84
+_3 0.56
+_4 0.481481
+_5 0.153846
+_6 0.793103
+_7 0.192308
+_8 0.806452
+_9 0.294118
+classificationError 50.1661%
+crossEntropyError 1.63086
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 36 took 25.3634 seconds (0.0280259 secs/seq, 814.243 its/sec, 20.7709 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.3125
+_2 0.408163
+_3 0.383929
+_4 0.336842
+_5 0.355556
+_6 0.419753
+_7 0.470588
+_8 0.445946
+_9 0.292683
+classificationError 39.337%
+crossEntropyError 1.28971
+------------------------------
+validation errors:
+_0 0.432432
+_1 0.365854
+_2 1
+_3 0.266667
+_4 0.4375
+_5 0.1875
+_6 0.35
+_7 0.0526316
+_8 0.580645
+_9 0.25641
+classificationError 41.8605%
+crossEntropyError 1.46883
+------------------------------
+test errors:
+_0 0.666667
+_1 0.413793
+_2 0.92
+_3 0.08
+_4 0.444444
+_5 0.282051
+_6 0.206897
+_7 0.230769
+_8 0.322581
+_9 0.117647
+classificationError 36.5449%
+crossEntropyError 1.37919
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 37 took 25.3387 seconds (0.0279986 secs/seq, 815.037 its/sec, 20.7912 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.302083
+_2 0.489796
+_3 0.410714
+_4 0.284211
+_5 0.411111
+_6 0.395062
+_7 0.470588
+_8 0.405405
+_9 0.268293
+classificationError 39.6685%
+crossEntropyError 1.23197
+------------------------------
+validation errors:
+_0 0.405405
+_1 0.365854
+_2 0.4
+_3 0.533333
+_4 0.28125
+_5 0.125
+_6 0.35
+_7 0.842105
+_8 0.709677
+_9 0.179487
+classificationError 38.8704%
+crossEntropyError 1.28795
+------------------------------
+test errors:
+_0 0.666667
+_1 0.37931
+_2 0.6
+_3 0.52
+_4 0.296296
+_5 0.205128
+_6 0.172414
+_7 0.884615
+_8 0.612903
+_9 0.0588235
+classificationError 42.5249%
+crossEntropyError 1.34053
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 38 took 25.667 seconds (0.0283614 secs/seq, 804.612 its/sec, 20.5253 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.333333
+_2 0.479592
+_3 0.392857
+_4 0.315789
+_5 0.4
+_6 0.432099
+_7 0.576471
+_8 0.405405
+_9 0.231707
+classificationError 40.442%
+crossEntropyError 1.22052
+------------------------------
+validation errors:
+_0 0.567568
+_1 0.243902
+_2 0.685714
+_3 0
+_4 0.3125
+_5 0.375
+_6 0.3
+_7 0.210526
+_8 0.483871
+_9 0.410256
+classificationError 39.2027%
+crossEntropyError 1.53229
+------------------------------
+test errors:
+_0 0.722222
+_1 0.37931
+_2 0.84
+_3 0.04
+_4 0.444444
+_5 0.589744
+_6 0.103448
+_7 0.269231
+_8 0.483871
+_9 0.323529
+classificationError 43.1894%
+crossEntropyError 1.49178
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 39 took 25.463 seconds (0.0281359 secs/seq, 811.06 its/sec, 20.6897 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.565217
+_1 0.322917
+_2 0.367347
+_3 0.410714
+_4 0.305263
+_5 0.422222
+_6 0.444444
+_7 0.435294
+_8 0.378378
+_9 0.353659
+classificationError 40%
+crossEntropyError 1.2857
+------------------------------
+validation errors:
+_0 0.351351
+_1 0.268293
+_2 0.514286
+_3 0.133333
+_4 0.21875
+_5 0.3125
+_6 0.6
+_7 0.578947
+_8 0.451613
+_9 0.717949
+classificationError 41.8605%
+crossEntropyError 1.49737
+------------------------------
+test errors:
+_0 0.472222
+_1 0.482759
+_2 0.56
+_3 0.52
+_4 0.148148
+_5 0.384615
+_6 0.586207
+_7 0.538462
+_8 0.290323
+_9 0.676471
+classificationError 46.5116%
+crossEntropyError 1.41539
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 40 took 25.2636 seconds (0.0279156 secs/seq, 817.46 its/sec, 20.853 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.554348
+_1 0.270833
+_2 0.469388
+_3 0.366071
+_4 0.231579
+_5 0.388889
+_6 0.419753
+_7 0.482353
+_8 0.310811
+_9 0.280488
+classificationError 37.7901%
+crossEntropyError 1.23512
+------------------------------
+validation errors:
+_0 0.594595
+_1 0.243902
+_2 0.4
+_3 0.533333
+_4 0.09375
+_5 0.28125
+_6 0.85
+_7 0.684211
+_8 0.354839
+_9 0.128205
+classificationError 37.2093%
+crossEntropyError 1.32814
+------------------------------
+test errors:
+_0 0.694444
+_1 0.37931
+_2 0.52
+_3 0.6
+_4 0.222222
+_5 0.435897
+_6 0.793103
+_7 0.884615
+_8 0.290323
+_9 0.0882353
+classificationError 48.1728%
+crossEntropyError 1.53127
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 41 took 25.3495 seconds (0.0280105 secs/seq, 814.689 its/sec, 20.7823 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.416667
+_2 0.44898
+_3 0.375
+_4 0.263158
+_5 0.344444
+_6 0.395062
+_7 0.447059
+_8 0.432432
+_9 0.280488
+classificationError 39.2265%
+crossEntropyError 1.21536
+------------------------------
+validation errors:
+_0 0.486486
+_1 0.243902
+_2 0.114286
+_3 0.866667
+_4 0.875
+_5 0.34375
+_6 0.25
+_7 0.315789
+_8 0.645161
+_9 0.230769
+classificationError 41.196%
+crossEntropyError 1.66005
+------------------------------
+test errors:
+_0 0.666667
+_1 0.241379
+_2 0.12
+_3 0.96
+_4 0.888889
+_5 0.615385
+_6 0.206897
+_7 0.538462
+_8 0.774194
+_9 0.176471
+classificationError 51.8272%
+crossEntropyError 1.91466
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 42 took 25.3389 seconds (0.0279988 secs/seq, 815.031 its/sec, 20.7911 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.28125
+_2 0.459184
+_3 0.330357
+_4 0.273684
+_5 0.388889
+_6 0.45679
+_7 0.435294
+_8 0.405405
+_9 0.317073
+classificationError 38.232%
+crossEntropyError 1.17717
+------------------------------
+validation errors:
+_0 0.810811
+_1 0.121951
+_2 0.485714
+_3 0.4
+_4 0.21875
+_5 0.21875
+_6 0.6
+_7 0.473684
+_8 0.741935
+_9 0.179487
+classificationError 40.8638%
+crossEntropyError 1.30999
+------------------------------
+test errors:
+_0 0.888889
+_1 0.206897
+_2 0.48
+_3 0.6
+_4 0.185185
+_5 0.230769
+_6 0.413793
+_7 0.615385
+_8 0.451613
+_9 0.0882353
+classificationError 41.196%
+crossEntropyError 1.30384
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 43 took 25.5315 seconds (0.0282116 secs/seq, 808.884 its/sec, 20.6342 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.291667
+_2 0.438776
+_3 0.348214
+_4 0.242105
+_5 0.411111
+_6 0.419753
+_7 0.470588
+_8 0.378378
+_9 0.256098
+classificationError 37.2376%
+crossEntropyError 1.23542
+------------------------------
+validation errors:
+_0 0.162162
+_1 0.243902
+_2 0.142857
+_3 0.6
+_4 0.21875
+_5 0.4375
+_6 0.3
+_7 1
+_8 0.322581
+_9 0.205128
+classificationError 31.2292%
+crossEntropyError 1.28252
+------------------------------
+test errors:
+_0 0.361111
+_1 0.37931
+_2 0.16
+_3 0.84
+_4 0.259259
+_5 0.589744
+_6 0.241379
+_7 1
+_8 0.451613
+_9 0.147059
+classificationError 43.5216%
+crossEntropyError 1.42959
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+
+epoch 44 took 25.3352 seconds (0.0279947 secs/seq, 815.151 its/sec, 20.7941 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.291667
+_2 0.387755
+_3 0.357143
+_4 0.221053
+_5 0.333333
+_6 0.395062
+_7 0.411765
+_8 0.5
+_9 0.207317
+classificationError 35.5801%
+crossEntropyError 1.14943
+------------------------------
+validation errors:
+_0 0.135135
+_1 0.146341
+_2 0.428571
+_3 0.666667
+_4 0.09375
+_5 0.4375
+_6 0.65
+_7 0.947368
+_8 0.419355
+_9 0.282051
+classificationError 35.8804%
+crossEntropyError 1.32072
+------------------------------
+test errors:
+_0 0.222222
+_1 0.241379
+_2 0.6
+_3 0.76
+_4 0.185185
+_5 0.461538
+_6 0.482759
+_7 1
+_8 0.516129
+_9 0.411765
+classificationError 47.1761%
+crossEntropyError 1.40146
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 45 took 25.9662 seconds (0.0286919 secs/seq, 795.342 its/sec, 20.2888 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.532609
+_1 0.260417
+_2 0.377551
+_3 0.276786
+_4 0.273684
+_5 0.4
+_6 0.45679
+_7 0.4
+_8 0.405405
+_9 0.268293
+classificationError 36.1326%
+crossEntropyError 1.20888
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.268293
+_2 0.628571
+_3 0.333333
+_4 0.3125
+_5 0.09375
+_6 0.5
+_7 0.368421
+_8 0.580645
+_9 0.512821
+classificationError 40.8638%
+crossEntropyError 1.65225
+------------------------------
+test errors:
+_0 0.611111
+_1 0.310345
+_2 0.84
+_3 0.32
+_4 0.37037
+_5 0.102564
+_6 0.241379
+_7 0.269231
+_8 0.548387
+_9 0.235294
+classificationError 37.5415%
+crossEntropyError 1.4353
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 46 took 25.9408 seconds (0.0286639 secs/seq, 796.12 its/sec, 20.3086 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.554348
+_1 0.270833
+_2 0.5
+_3 0.401786
+_4 0.252632
+_5 0.377778
+_6 0.432099
+_7 0.517647
+_8 0.459459
+_9 0.365854
+classificationError 41.105%
+crossEntropyError 1.34246
+------------------------------
+validation errors:
+_0 0.351351
+_1 0.219512
+_2 0.457143
+_3 0.0666667
+_4 0.59375
+_5 0.59375
+_6 0.45
+_7 0.315789
+_8 0.0967742
+_9 0.358974
+classificationError 36.2126%
+crossEntropyError 1.42538
+------------------------------
+test errors:
+_0 0.583333
+_1 0.37931
+_2 0.56
+_3 0.44
+_4 0.740741
+_5 0.769231
+_6 0.344828
+_7 0.538462
+_8 0.0322581
+_9 0.235294
+classificationError 46.5116%
+crossEntropyError 1.55786
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 47 took 25.8639 seconds (0.0285789 secs/seq, 798.488 its/sec, 20.369 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.25
+_2 0.520408
+_3 0.348214
+_4 0.315789
+_5 0.4
+_6 0.481481
+_7 0.482353
+_8 0.459459
+_9 0.219512
+classificationError 39.779%
+crossEntropyError 1.26423
+------------------------------
+validation errors:
+_0 0.486486
+_1 0.121951
+_2 0.714286
+_3 0.533333
+_4 0.875
+_5 0.28125
+_6 0.5
+_7 0
+_8 0.548387
+_9 0.25641
+classificationError 43.1894%
+crossEntropyError 1.34921
+------------------------------
+test errors:
+_0 0.722222
+_1 0.37931
+_2 0.72
+_3 0.52
+_4 0.851852
+_5 0.358974
+_6 0.344828
+_7 0.0769231
+_8 0.516129
+_9 0.117647
+classificationError 45.515%
+crossEntropyError 1.34764
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 48 took 25.8583 seconds (0.0285728 secs/seq, 798.659 its/sec, 20.3734 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.445652
+_1 0.291667
+_2 0.510204
+_3 0.419643
+_4 0.263158
+_5 0.344444
+_6 0.45679
+_7 0.447059
+_8 0.445946
+_9 0.256098
+classificationError 38.7845%
+crossEntropyError 1.25725
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.121951
+_2 0.628571
+_3 0.8
+_4 0.3125
+_5 0.46875
+_6 0.65
+_7 0.315789
+_8 0.580645
+_9 0.230769
+classificationError 39.5349%
+crossEntropyError 1.30331
+------------------------------
+test errors:
+_0 0.361111
+_1 0.137931
+_2 0.6
+_3 0.84
+_4 0.222222
+_5 0.717949
+_6 0.448276
+_7 0.346154
+_8 0.645161
+_9 0.117647
+classificationError 44.186%
+crossEntropyError 1.35809
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 49 took 25.7793 seconds (0.0284854 secs/seq, 801.107 its/sec, 20.4359 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.291667
+_2 0.55102
+_3 0.473214
+_4 0.305263
+_5 0.455556
+_6 0.481481
+_7 0.435294
+_8 0.540541
+_9 0.304878
+classificationError 43.3149%
+crossEntropyError 1.27387
+------------------------------
+validation errors:
+_0 0.675676
+_1 0.243902
+_2 0.2
+_3 0.6
+_4 0.21875
+_5 0.15625
+_6 0.45
+_7 0.842105
+_8 0.290323
+_9 0.205128
+classificationError 34.8837%
+crossEntropyError 1.31348
+------------------------------
+test errors:
+_0 0.916667
+_1 0.310345
+_2 0.36
+_3 0.88
+_4 0.185185
+_5 0.333333
+_6 0.344828
+_7 0.923077
+_8 0.0967742
+_9 0.176471
+classificationError 44.5183%
+crossEntropyError 1.59487
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 50 took 25.5434 seconds (0.0282248 secs/seq, 808.505 its/sec, 20.6246 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.385417
+_2 0.469388
+_3 0.401786
+_4 0.284211
+_5 0.422222
+_6 0.382716
+_7 0.376471
+_8 0.405405
+_9 0.292683
+classificationError 39.116%
+crossEntropyError 1.24031
+------------------------------
+validation errors:
+_0 0.621622
+_1 0.195122
+_2 0.942857
+_3 0.0666667
+_4 0.53125
+_5 0.25
+_6 0.75
+_7 0.157895
+_8 0.258065
+_9 0.230769
+classificationError 41.5282%
+crossEntropyError 1.59431
+------------------------------
+test errors:
+_0 0.805556
+_1 0.206897
+_2 1
+_3 0.16
+_4 0.62963
+_5 0.487179
+_6 0.758621
+_7 0.269231
+_8 0.258065
+_9 0.0882353
+classificationError 46.5116%
+crossEntropyError 1.65472
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 51 took 25.5963 seconds (0.0282832 secs/seq, 806.836 its/sec, 20.582 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.608696
+_1 0.291667
+_2 0.5
+_3 0.392857
+_4 0.273684
+_5 0.433333
+_6 0.469136
+_7 0.611765
+_8 0.378378
+_9 0.329268
+classificationError 42.7624%
+crossEntropyError 1.29364
+------------------------------
+validation errors:
+_0 0.702703
+_1 0.902439
+_2 0.885714
+_3 0.266667
+_4 0.125
+_5 0.15625
+_6 0.45
+_7 0.473684
+_8 0.548387
+_9 0.179487
+classificationError 49.5017%
+crossEntropyError 1.56493
+------------------------------
+test errors:
+_0 0.944444
+_1 0.965517
+_2 0.92
+_3 0.08
+_4 0.296296
+_5 0.282051
+_6 0.206897
+_7 0.615385
+_8 0.258065
+_9 0.0294118
+classificationError 45.515%
+crossEntropyError 1.46246
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 52 took 26.078 seconds (0.0288155 secs/seq, 791.932 its/sec, 20.2018 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.586957
+_1 0.322917
+_2 0.469388
+_3 0.410714
+_4 0.252632
+_5 0.444444
+_6 0.419753
+_7 0.494118
+_8 0.391892
+_9 0.231707
+classificationError 40.3315%
+crossEntropyError 1.25191
+------------------------------
+validation errors:
+_0 0.108108
+_1 0.439024
+_2 0.714286
+_3 0.0666667
+_4 0.0625
+_5 0.4375
+_6 0.7
+_7 0.894737
+_8 0.741935
+_9 0.230769
+classificationError 42.1927%
+crossEntropyError 1.41318
+------------------------------
+test errors:
+_0 0.166667
+_1 0.689655
+_2 0.8
+_3 0.16
+_4 0.148148
+_5 0.692308
+_6 0.586207
+_7 0.923077
+_8 0.709677
+_9 0.176471
+classificationError 49.8339%
+crossEntropyError 1.45897
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 53 took 25.9959 seconds (0.0287248 secs/seq, 794.433 its/sec, 20.2656 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.554348
+_1 0.364583
+_2 0.479592
+_3 0.339286
+_4 0.273684
+_5 0.366667
+_6 0.395062
+_7 0.564706
+_8 0.378378
+_9 0.390244
+classificationError 40.884%
+crossEntropyError 1.21926
+------------------------------
+validation errors:
+_0 0.324324
+_1 0.243902
+_2 0.428571
+_3 0.8
+_4 0.4375
+_5 0.25
+_6 0.6
+_7 0.315789
+_8 0.290323
+_9 0.384615
+classificationError 37.5415%
+crossEntropyError 1.29988
+------------------------------
+test errors:
+_0 0.25
+_1 0.344828
+_2 0.64
+_3 0.76
+_4 0.555556
+_5 0.435897
+_6 0.517241
+_7 0.423077
+_8 0.258065
+_9 0.235294
+classificationError 42.5249%
+crossEntropyError 1.35919
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 54 took 25.9239 seconds (0.0286451 secs/seq, 796.641 its/sec, 20.3219 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.532609
+_1 0.3125
+_2 0.408163
+_3 0.392857
+_4 0.242105
+_5 0.366667
+_6 0.395062
+_7 0.588235
+_8 0.364865
+_9 0.329268
+classificationError 39.2265%
+crossEntropyError 1.23957
+------------------------------
+validation errors:
+_0 0.540541
+_1 0.487805
+_2 0.514286
+_3 0.266667
+_4 0.6875
+_5 0.34375
+_6 0.5
+_7 0.526316
+_8 0.322581
+_9 0.102564
+classificationError 42.8571%
+crossEntropyError 1.43733
+------------------------------
+test errors:
+_0 0.861111
+_1 0.551724
+_2 0.52
+_3 0.36
+_4 0.851852
+_5 0.564103
+_6 0.310345
+_7 0.653846
+_8 0.0645161
+_9 0
+classificationError 47.1761%
+crossEntropyError 1.55523
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 55 took 25.4396 seconds (0.02811 secs/seq, 811.807 its/sec, 20.7088 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.576087
+_1 0.270833
+_2 0.459184
+_3 0.375
+_4 0.252632
+_5 0.377778
+_6 0.419753
+_7 0.505882
+_8 0.337838
+_9 0.280488
+classificationError 38.5635%
+crossEntropyError 1.17505
+------------------------------
+validation errors:
+_0 0.540541
+_1 0.195122
+_2 0.4
+_3 0.333333
+_4 0.28125
+_5 0.0625
+_6 0.5
+_7 0.789474
+_8 0.612903
+_9 0.282051
+classificationError 37.5415%
+crossEntropyError 1.31983
+------------------------------
+test errors:
+_0 0.722222
+_1 0.241379
+_2 0.48
+_3 0.4
+_4 0.222222
+_5 0.179487
+_6 0.413793
+_7 0.807692
+_8 0.387097
+_9 0.205882
+classificationError 39.8671%
+crossEntropyError 1.23039
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 56 took 25.3401 seconds (0.0280002 secs/seq, 814.991 its/sec, 20.79 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.543478
+_1 0.291667
+_2 0.438776
+_3 0.4375
+_4 0.273684
+_5 0.355556
+_6 0.407407
+_7 0.529412
+_8 0.324324
+_9 0.341463
+classificationError 39.558%
+crossEntropyError 1.22545
+------------------------------
+validation errors:
+_0 0.297297
+_1 0.268293
+_2 1
+_3 0.133333
+_4 0.15625
+_5 0.40625
+_6 0.5
+_7 0.736842
+_8 0.322581
+_9 0.25641
+classificationError 40.1993%
+crossEntropyError 1.47534
+------------------------------
+test errors:
+_0 0.472222
+_1 0.275862
+_2 1
+_3 0.12
+_4 0.222222
+_5 0.538462
+_6 0.482759
+_7 0.730769
+_8 0.483871
+_9 0.0882353
+classificationError 43.5216%
+crossEntropyError 1.37263
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 57 took 25.2696 seconds (0.0279222 secs/seq, 817.268 its/sec, 20.8481 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.260417
+_2 0.418367
+_3 0.321429
+_4 0.315789
+_5 0.444444
+_6 0.382716
+_7 0.552941
+_8 0.391892
+_9 0.439024
+classificationError 39.558%
+crossEntropyError 1.28929
+------------------------------
+validation errors:
+_0 0.378378
+_1 0.219512
+_2 0.371429
+_3 0.266667
+_4 0.25
+_5 0.3125
+_6 0.9
+_7 0.947368
+_8 0.225806
+_9 0.641026
+classificationError 41.8605%
+crossEntropyError 1.38786
+------------------------------
+test errors:
+_0 0.555556
+_1 0.206897
+_2 0.44
+_3 0.48
+_4 0.185185
+_5 0.410256
+_6 0.793103
+_7 1
+_8 0.193548
+_9 0.617647
+classificationError 48.505%
+crossEntropyError 1.44882
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 58 took 25.4737 seconds (0.0281478 secs/seq, 810.717 its/sec, 20.681 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.239583
+_2 0.44898
+_3 0.4375
+_4 0.273684
+_5 0.377778
+_6 0.419753
+_7 0.552941
+_8 0.378378
+_9 0.280488
+classificationError 39.116%
+crossEntropyError 1.19664
+------------------------------
+validation errors:
+_0 0.675676
+_1 0.0731707
+_2 0.8
+_3 0.8
+_4 0.15625
+_5 0.21875
+_6 0.8
+_7 0.578947
+_8 0.516129
+_9 0.179487
+classificationError 43.1894%
+crossEntropyError 1.44063
+------------------------------
+test errors:
+_0 0.861111
+_1 0.137931
+_2 0.84
+_3 0.72
+_4 0.259259
+_5 0.282051
+_6 0.655172
+_7 0.692308
+_8 0.354839
+_9 0.117647
+classificationError 47.8405%
+crossEntropyError 1.55565
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 59 took 25.6383 seconds (0.0283296 secs/seq, 805.513 its/sec, 20.5482 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.48913
+_1 0.291667
+_2 0.367347
+_3 0.419643
+_4 0.305263
+_5 0.388889
+_6 0.432099
+_7 0.6
+_8 0.405405
+_9 0.45122
+classificationError 41.2155%
+crossEntropyError 1.28635
+------------------------------
+validation errors:
+_0 0.378378
+_1 0.146341
+_2 0.971429
+_3 0.2
+_4 0.46875
+_5 0.65625
+_6 0.45
+_7 0.105263
+_8 0.806452
+_9 0.384615
+classificationError 47.8405%
+crossEntropyError 1.72695
+------------------------------
+test errors:
+_0 0.444444
+_1 0.172414
+_2 1
+_3 0.12
+_4 0.62963
+_5 0.769231
+_6 0.310345
+_7 0.192308
+_8 0.83871
+_9 0.382353
+classificationError 49.5017%
+crossEntropyError 1.59765
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 60 took 25.6135 seconds (0.0283022 secs/seq, 806.293 its/sec, 20.5682 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.291667
+_2 0.387755
+_3 0.375
+_4 0.315789
+_5 0.366667
+_6 0.432099
+_7 0.505882
+_8 0.364865
+_9 0.414634
+classificationError 38.895%
+crossEntropyError 1.2286
+------------------------------
+validation errors:
+_0 0.378378
+_1 0.170732
+_2 0.285714
+_3 0.0666667
+_4 0.1875
+_5 0.5
+_6 0.5
+_7 0.789474
+_8 0.16129
+_9 0.153846
+classificationError 29.9003%
+crossEntropyError 1.16591
+------------------------------
+test errors:
+_0 0.722222
+_1 0.275862
+_2 0.32
+_3 0.4
+_4 0.259259
+_5 0.666667
+_6 0.448276
+_7 0.807692
+_8 0.193548
+_9 0.0588235
+classificationError 42.1927%
+crossEntropyError 1.33764
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 61 took 25.5887 seconds (0.0282748 secs/seq, 807.075 its/sec, 20.5881 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.543478
+_1 0.28125
+_2 0.367347
+_3 0.348214
+_4 0.242105
+_5 0.455556
+_6 0.432099
+_7 0.470588
+_8 0.351351
+_9 0.317073
+classificationError 37.9006%
+crossEntropyError 1.17668
+------------------------------
+validation errors:
+_0 0.621622
+_1 0.390244
+_2 0.228571
+_3 0.266667
+_4 0.375
+_5 0.75
+_6 0.6
+_7 0.0526316
+_8 0.0967742
+_9 0.179487
+classificationError 36.5449%
+crossEntropyError 1.36622
+------------------------------
+test errors:
+_0 0.833333
+_1 0.517241
+_2 0.32
+_3 0.52
+_4 0.555556
+_5 0.794872
+_6 0.517241
+_7 0.269231
+_8 0.129032
+_9 0.0588235
+classificationError 46.5116%
+crossEntropyError 1.50924
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 62 took 25.5084 seconds (0.028186 secs/seq, 809.616 its/sec, 20.6529 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.51087
+_1 0.28125
+_2 0.357143
+_3 0.357143
+_4 0.252632
+_5 0.366667
+_6 0.469136
+_7 0.435294
+_8 0.405405
+_9 0.268293
+classificationError 36.7956%
+crossEntropyError 1.16471
+------------------------------
+validation errors:
+_0 0.351351
+_1 0.341463
+_2 0.285714
+_3 0.333333
+_4 0.25
+_5 0.28125
+_6 0.5
+_7 0.894737
+_8 0.548387
+_9 0.230769
+classificationError 37.2093%
+crossEntropyError 1.33558
+------------------------------
+test errors:
+_0 0.444444
+_1 0.448276
+_2 0.4
+_3 0.4
+_4 0.259259
+_5 0.282051
+_6 0.344828
+_7 1
+_8 0.354839
+_9 0.117647
+classificationError 39.2027%
+crossEntropyError 1.28762
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 63 took 25.9722 seconds (0.0286986 secs/seq, 795.158 its/sec, 20.2841 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.270833
+_2 0.377551
+_3 0.330357
+_4 0.263158
+_5 0.4
+_6 0.444444
+_7 0.505882
+_8 0.391892
+_9 0.292683
+classificationError 37.6796%
+crossEntropyError 1.19376
+------------------------------
+validation errors:
+_0 0.432432
+_1 0.268293
+_2 0.371429
+_3 0.6
+_4 0.21875
+_5 0.4375
+_6 0.55
+_7 0.105263
+_8 0.193548
+_9 0.230769
+classificationError 32.5581%
+crossEntropyError 1.26536
+------------------------------
+test errors:
+_0 0.388889
+_1 0.413793
+_2 0.52
+_3 0.64
+_4 0.333333
+_5 0.692308
+_6 0.517241
+_7 0.269231
+_8 0.225806
+_9 0.176471
+classificationError 41.8605%
+crossEntropyError 1.3402
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 64 took 25.7986 seconds (0.0285068 secs/seq, 800.508 its/sec, 20.4206 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.51087
+_1 0.260417
+_2 0.418367
+_3 0.401786
+_4 0.315789
+_5 0.455556
+_6 0.395062
+_7 0.517647
+_8 0.378378
+_9 0.280488
+classificationError 39.337%
+crossEntropyError 1.2749
+------------------------------
+validation errors:
+_0 0.297297
+_1 0.146341
+_2 0.2
+_3 0.733333
+_4 0.1875
+_5 0.5625
+_6 0.45
+_7 0.315789
+_8 0.419355
+_9 0.333333
+classificationError 33.2226%
+crossEntropyError 1.19954
+------------------------------
+test errors:
+_0 0.5
+_1 0.137931
+_2 0.24
+_3 0.88
+_4 0.222222
+_5 0.74359
+_6 0.37931
+_7 0.5
+_8 0.612903
+_9 0.294118
+classificationError 45.8472%
+crossEntropyError 1.41081
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 65 took 25.3375 seconds (0.0279972 secs/seq, 815.077 its/sec, 20.7922 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.532609
+_1 0.260417
+_2 0.377551
+_3 0.366071
+_4 0.284211
+_5 0.466667
+_6 0.419753
+_7 0.517647
+_8 0.445946
+_9 0.256098
+classificationError 39.0055%
+crossEntropyError 1.21419
+------------------------------
+validation errors:
+_0 0.72973
+_1 0.195122
+_2 0.285714
+_3 0.266667
+_4 0.59375
+_5 0.0625
+_6 0.3
+_7 0.210526
+_8 0.677419
+_9 0.846154
+classificationError 44.5183%
+crossEntropyError 1.58796
+------------------------------
+test errors:
+_0 0.722222
+_1 0.206897
+_2 0.48
+_3 0.32
+_4 0.592593
+_5 0.025641
+_6 0.206897
+_7 0.307692
+_8 0.741935
+_9 0.647059
+classificationError 42.5249%
+crossEntropyError 1.4372
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 66 took 25.5069 seconds (0.0281844 secs/seq, 809.664 its/sec, 20.6541 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.229167
+_2 0.397959
+_3 0.375
+_4 0.273684
+_5 0.377778
+_6 0.345679
+_7 0.517647
+_8 0.405405
+_9 0.280488
+classificationError 36.4641%
+crossEntropyError 1.15169
+------------------------------
+validation errors:
+_0 0.378378
+_1 0.243902
+_2 0.257143
+_3 0.466667
+_4 0.15625
+_5 0.1875
+_6 0.75
+_7 0.736842
+_8 0.354839
+_9 0.153846
+classificationError 32.2259%
+crossEntropyError 1.18413
+------------------------------
+test errors:
+_0 0.611111
+_1 0.310345
+_2 0.32
+_3 0.64
+_4 0.185185
+_5 0.307692
+_6 0.586207
+_7 0.615385
+_8 0.258065
+_9 0.0882353
+classificationError 38.5382%
+crossEntropyError 1.20032
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 67 took 25.247 seconds (0.0278973 secs/seq, 817.997 its/sec, 20.8667 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.521739
+_1 0.25
+_2 0.285714
+_3 0.348214
+_4 0.221053
+_5 0.411111
+_6 0.358025
+_7 0.423529
+_8 0.418919
+_9 0.195122
+classificationError 34.1436%
+crossEntropyError 1.11993
+------------------------------
+validation errors:
+_0 0.0810811
+_1 0.146341
+_2 0.228571
+_3 0.6
+_4 0.15625
+_5 0.75
+_6 0.75
+_7 0.578947
+_8 0.83871
+_9 0.0769231
+classificationError 36.5449%
+crossEntropyError 1.28094
+------------------------------
+test errors:
+_0 0.138889
+_1 0.206897
+_2 0.4
+_3 0.6
+_4 0.185185
+_5 0.692308
+_6 0.793103
+_7 0.692308
+_8 0.774194
+_9 0.0588235
+classificationError 44.8505%
+crossEntropyError 1.39971
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 68 took 25.8495 seconds (0.028563 secs/seq, 798.931 its/sec, 20.3803 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.25
+_2 0.326531
+_3 0.232143
+_4 0.210526
+_5 0.344444
+_6 0.419753
+_7 0.376471
+_8 0.459459
+_9 0.268293
+classificationError 33.0387%
+crossEntropyError 1.14641
+------------------------------
+validation errors:
+_0 0.216216
+_1 0.292683
+_2 0.285714
+_3 0.0666667
+_4 0.3125
+_5 0.34375
+_6 0.6
+_7 0.526316
+_8 0.354839
+_9 0.25641
+classificationError 31.5615%
+crossEntropyError 1.2798
+------------------------------
+test errors:
+_0 0.305556
+_1 0.37931
+_2 0.32
+_3 0.32
+_4 0.481481
+_5 0.589744
+_6 0.344828
+_7 0.576923
+_8 0.354839
+_9 0.176471
+classificationError 38.5382%
+crossEntropyError 1.3037
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 69 took 25.3032 seconds (0.0279593 secs/seq, 816.182 its/sec, 20.8204 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.445652
+_1 0.260417
+_2 0.367347
+_3 0.357143
+_4 0.284211
+_5 0.366667
+_6 0.37037
+_7 0.388235
+_8 0.378378
+_9 0.292683
+classificationError 35.0276%
+crossEntropyError 1.10911
+------------------------------
+validation errors:
+_0 0.648649
+_1 0.170732
+_2 0.171429
+_3 0.266667
+_4 0.1875
+_5 0.21875
+_6 0.55
+_7 0.578947
+_8 0.258065
+_9 0.512821
+classificationError 34.5515%
+crossEntropyError 1.29878
+------------------------------
+test errors:
+_0 0.777778
+_1 0.241379
+_2 0.32
+_3 0.52
+_4 0.148148
+_5 0.487179
+_6 0.517241
+_7 0.653846
+_8 0.290323
+_9 0.558824
+classificationError 46.1794%
+crossEntropyError 1.34372
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 70 took 25.3929 seconds (0.0280585 secs/seq, 813.297 its/sec, 20.7468 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.423913
+_1 0.229167
+_2 0.295918
+_3 0.258929
+_4 0.2
+_5 0.333333
+_6 0.407407
+_7 0.376471
+_8 0.391892
+_9 0.280488
+classificationError 31.4917%
+crossEntropyError 1.04896
+------------------------------
+validation errors:
+_0 0.135135
+_1 0.219512
+_2 0.4
+_3 0.133333
+_4 0.15625
+_5 0.53125
+_6 0.5
+_7 0.578947
+_8 0.419355
+_9 0.25641
+classificationError 31.8937%
+crossEntropyError 1.26741
+------------------------------
+test errors:
+_0 0.138889
+_1 0.344828
+_2 0.56
+_3 0.36
+_4 0.148148
+_5 0.769231
+_6 0.275862
+_7 0.423077
+_8 0.516129
+_9 0.205882
+classificationError 37.8738%
+crossEntropyError 1.30554
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 71 took 25.5115 seconds (0.0281895 secs/seq, 809.518 its/sec, 20.6504 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.239583
+_2 0.316327
+_3 0.276786
+_4 0.221053
+_5 0.3
+_6 0.320988
+_7 0.517647
+_8 0.351351
+_9 0.231707
+classificationError 32.0442%
+crossEntropyError 1.02489
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.146341
+_2 0.657143
+_3 0.2
+_4 0.21875
+_5 0.09375
+_6 0.7
+_7 0.631579
+_8 0.451613
+_9 0.410256
+classificationError 38.206%
+crossEntropyError 1.35834
+------------------------------
+test errors:
+_0 0.611111
+_1 0.137931
+_2 0.8
+_3 0.08
+_4 0.222222
+_5 0.128205
+_6 0.448276
+_7 0.807692
+_8 0.258065
+_9 0.117647
+classificationError 34.8837%
+crossEntropyError 1.19854
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 72 took 25.8995 seconds (0.0286182 secs/seq, 797.39 its/sec, 20.341 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.239583
+_2 0.418367
+_3 0.303571
+_4 0.336842
+_5 0.344444
+_6 0.444444
+_7 0.564706
+_8 0.364865
+_9 0.243902
+classificationError 36.9061%
+crossEntropyError 1.09204
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.195122
+_2 0.171429
+_3 0.666667
+_4 0.5625
+_5 0.1875
+_6 0.3
+_7 0.210526
+_8 0.677419
+_9 0.205128
+classificationError 31.8937%
+crossEntropyError 1.15815
+------------------------------
+test errors:
+_0 0.361111
+_1 0.137931
+_2 0.4
+_3 0.68
+_4 0.740741
+_5 0.333333
+_6 0.172414
+_7 0.307692
+_8 0.580645
+_9 0.0882353
+classificationError 36.8771%
+crossEntropyError 1.17945
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 73 took 25.3237 seconds (0.0279819 secs/seq, 815.522 its/sec, 20.8036 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.208333
+_2 0.306122
+_3 0.303571
+_4 0.242105
+_5 0.388889
+_6 0.407407
+_7 0.517647
+_8 0.351351
+_9 0.207317
+classificationError 33.5912%
+crossEntropyError 1.04429
+------------------------------
+validation errors:
+_0 0.72973
+_1 0.121951
+_2 0.314286
+_3 0.333333
+_4 0.34375
+_5 0.15625
+_6 0.45
+_7 0.105263
+_8 0.645161
+_9 0.205128
+classificationError 34.2193%
+crossEntropyError 1.35394
+------------------------------
+test errors:
+_0 0.888889
+_1 0.172414
+_2 0.4
+_3 0.36
+_4 0.259259
+_5 0.128205
+_6 0.344828
+_7 0.192308
+_8 0.612903
+_9 0.0882353
+classificationError 34.8837%
+crossEntropyError 1.32962
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 74 took 25.3515 seconds (0.0280127 secs/seq, 814.627 its/sec, 20.7807 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.270833
+_2 0.285714
+_3 0.303571
+_4 0.242105
+_5 0.333333
+_6 0.419753
+_7 0.482353
+_8 0.391892
+_9 0.231707
+classificationError 34.0331%
+crossEntropyError 1.10153
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.146341
+_2 0.0857143
+_3 0.6
+_4 0.3125
+_5 0.28125
+_6 0.35
+_7 0.684211
+_8 0.709677
+_9 0.282051
+classificationError 32.8904%
+crossEntropyError 1.21946
+------------------------------
+test errors:
+_0 0.472222
+_1 0.103448
+_2 0.28
+_3 0.76
+_4 0.222222
+_5 0.435897
+_6 0.413793
+_7 0.692308
+_8 0.709677
+_9 0.235294
+classificationError 42.8571%
+crossEntropyError 1.2979
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 75 took 25.2857 seconds (0.02794 secs/seq, 816.747 its/sec, 20.8348 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.260417
+_2 0.316327
+_3 0.241071
+_4 0.168421
+_5 0.311111
+_6 0.419753
+_7 0.458824
+_8 0.432432
+_9 0.219512
+classificationError 32.3757%
+crossEntropyError 1.04637
+------------------------------
+validation errors:
+_0 0.324324
+_1 0.146341
+_2 0.171429
+_3 0.133333
+_4 0.125
+_5 0.28125
+_6 0.35
+_7 0.315789
+_8 0.451613
+_9 0.179487
+classificationError 24.2525%
+crossEntropyError 1.08339
+------------------------------
+test errors:
+_0 0.638889
+_1 0.206897
+_2 0.28
+_3 0.28
+_4 0.148148
+_5 0.384615
+_6 0.172414
+_7 0.307692
+_8 0.387097
+_9 0.117647
+classificationError 30.2326%
+crossEntropyError 1.12027
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (classificationError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 76 took 25.8897 seconds (0.0286074 secs/seq, 797.693 its/sec, 20.3488 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.239583
+_2 0.295918
+_3 0.232143
+_4 0.221053
+_5 0.355556
+_6 0.358025
+_7 0.364706
+_8 0.310811
+_9 0.243902
+classificationError 30.4972%
+crossEntropyError 1.00805
+------------------------------
+validation errors:
+_0 0.324324
+_1 0.146341
+_2 0.4
+_3 0.4
+_4 0.15625
+_5 0.1875
+_6 0.6
+_7 0.842105
+_8 0.290323
+_9 0.205128
+classificationError 31.2292%
+crossEntropyError 1.10616
+------------------------------
+test errors:
+_0 0.583333
+_1 0.206897
+_2 0.4
+_3 0.36
+_4 0.185185
+_5 0.282051
+_6 0.551724
+_7 0.923077
+_8 0.193548
+_9 0.0588235
+classificationError 36.5449%
+crossEntropyError 1.14541
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 77 took 25.9456 seconds (0.0286692 secs/seq, 795.972 its/sec, 20.3049 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.48913
+_1 0.302083
+_2 0.336735
+_3 0.285714
+_4 0.273684
+_5 0.3
+_6 0.320988
+_7 0.482353
+_8 0.405405
+_9 0.207317
+classificationError 33.8122%
+crossEntropyError 1.1162
+------------------------------
+validation errors:
+_0 0.513514
+_1 0.341463
+_2 0.228571
+_3 0.4
+_4 0.125
+_5 0.21875
+_6 0.75
+_7 0.578947
+_8 0.354839
+_9 0.179487
+classificationError 33.887%
+crossEntropyError 1.30565
+------------------------------
+test errors:
+_0 0.694444
+_1 0.482759
+_2 0.32
+_3 0.6
+_4 0.148148
+_5 0.435897
+_6 0.724138
+_7 0.730769
+_8 0.354839
+_9 0.117647
+classificationError 45.8472%
+crossEntropyError 1.37131
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 78 took 25.2853 seconds (0.0279395 secs/seq, 816.761 its/sec, 20.8352 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.48913
+_1 0.239583
+_2 0.255102
+_3 0.303571
+_4 0.263158
+_5 0.333333
+_6 0.407407
+_7 0.482353
+_8 0.364865
+_9 0.317073
+classificationError 34.1436%
+crossEntropyError 1.08168
+------------------------------
+validation errors:
+_0 0.432432
+_1 0.219512
+_2 0.171429
+_3 0.4
+_4 0.5625
+_5 0.15625
+_6 0.2
+_7 0.421053
+_8 0.612903
+_9 0.25641
+classificationError 33.5548%
+crossEntropyError 1.44012
+------------------------------
+test errors:
+_0 0.666667
+_1 0.206897
+_2 0.24
+_3 0.72
+_4 0.592593
+_5 0.538462
+_6 0.0344828
+_7 0.653846
+_8 0.516129
+_9 0.176471
+classificationError 43.5216%
+crossEntropyError 1.47375
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 79 took 25.3038 seconds (0.02796 secs/seq, 816.163 its/sec, 20.8199 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.166667
+_2 0.265306
+_3 0.25
+_4 0.263158
+_5 0.377778
+_6 0.432099
+_7 0.447059
+_8 0.324324
+_9 0.195122
+classificationError 31.3812%
+crossEntropyError 1.03711
+------------------------------
+validation errors:
+_0 0.594595
+_1 0.390244
+_2 0.2
+_3 0.0666667
+_4 0.125
+_5 0.46875
+_6 0.4
+_7 0.947368
+_8 0.0967742
+_9 0.179487
+classificationError 33.5548%
+crossEntropyError 1.23552
+------------------------------
+test errors:
+_0 0.722222
+_1 0.517241
+_2 0.36
+_3 0.24
+_4 0.222222
+_5 0.512821
+_6 0.172414
+_7 0.923077
+_8 0.0967742
+_9 0.0588235
+classificationError 38.5382%
+crossEntropyError 1.35665
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 80 took 25.2963 seconds (0.0279518 secs/seq, 816.403 its/sec, 20.826 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.402174
+_1 0.21875
+_2 0.316327
+_3 0.241071
+_4 0.263158
+_5 0.388889
+_6 0.358025
+_7 0.482353
+_8 0.364865
+_9 0.256098
+classificationError 32.4862%
+crossEntropyError 1.01927
+------------------------------
+validation errors:
+_0 0.297297
+_1 0.0731707
+_2 0.542857
+_3 0.333333
+_4 0.3125
+_5 0.25
+_6 0.85
+_7 0.526316
+_8 0.709677
+_9 0.282051
+classificationError 38.5382%
+crossEntropyError 1.34055
+------------------------------
+test errors:
+_0 0.388889
+_1 0.137931
+_2 0.64
+_3 0.24
+_4 0.296296
+_5 0.461538
+_6 0.758621
+_7 0.653846
+_8 0.645161
+_9 0.147059
+classificationError 43.1894%
+crossEntropyError 1.32422
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 81 took 25.2575 seconds (0.0279088 secs/seq, 817.659 its/sec, 20.8581 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.423913
+_1 0.260417
+_2 0.346939
+_3 0.294643
+_4 0.221053
+_5 0.322222
+_6 0.419753
+_7 0.435294
+_8 0.445946
+_9 0.268293
+classificationError 33.9227%
+crossEntropyError 1.03946
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.195122
+_2 0.314286
+_3 0.2
+_4 0.4375
+_5 0.1875
+_6 0.5
+_7 0
+_8 0.709677
+_9 0.153846
+classificationError 32.2259%
+crossEntropyError 1.26327
+------------------------------
+test errors:
+_0 0.555556
+_1 0.344828
+_2 0.56
+_3 0.2
+_4 0.444444
+_5 0.410256
+_6 0.275862
+_7 0.0769231
+_8 0.774194
+_9 0.0882353
+classificationError 37.8738%
+crossEntropyError 1.26321
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 82 took 25.5819 seconds (0.0282673 secs/seq, 807.289 its/sec, 20.5935 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.28125
+_2 0.265306
+_3 0.3125
+_4 0.252632
+_5 0.411111
+_6 0.407407
+_7 0.470588
+_8 0.432432
+_9 0.268293
+classificationError 35.2486%
+crossEntropyError 1.07972
+------------------------------
+validation errors:
+_0 0.540541
+_1 0.292683
+_2 0.514286
+_3 0.333333
+_4 0.375
+_5 0.21875
+_6 0.55
+_7 0.157895
+_8 0.193548
+_9 0.333333
+classificationError 35.5482%
+crossEntropyError 1.29531
+------------------------------
+test errors:
+_0 0.722222
+_1 0.37931
+_2 0.68
+_3 0.08
+_4 0.481481
+_5 0.410256
+_6 0.275862
+_7 0.5
+_8 0.129032
+_9 0.147059
+classificationError 38.206%
+crossEntropyError 1.23272
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 83 took 25.4158 seconds (0.0280838 secs/seq, 812.565 its/sec, 20.7281 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.445652
+_1 0.322917
+_2 0.27551
+_3 0.348214
+_4 0.294737
+_5 0.377778
+_6 0.345679
+_7 0.564706
+_8 0.405405
+_9 0.414634
+classificationError 37.5691%
+crossEntropyError 1.25964
+------------------------------
+validation errors:
+_0 0.297297
+_1 0.487805
+_2 0.314286
+_3 0.533333
+_4 0.125
+_5 0.21875
+_6 0.65
+_7 0.684211
+_8 0.483871
+_9 0.512821
+classificationError 40.5316%
+crossEntropyError 1.39729
+------------------------------
+test errors:
+_0 0.333333
+_1 0.482759
+_2 0.4
+_3 0.16
+_4 0.148148
+_5 0.205128
+_6 0.448276
+_7 0.692308
+_8 0.290323
+_9 0.470588
+classificationError 35.8804%
+crossEntropyError 1.2305
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 84 took 25.3177 seconds (0.0279753 secs/seq, 815.715 its/sec, 20.8085 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.423913
+_1 0.270833
+_2 0.346939
+_3 0.267857
+_4 0.273684
+_5 0.344444
+_6 0.382716
+_7 0.482353
+_8 0.432432
+_9 0.292683
+classificationError 34.6961%
+crossEntropyError 1.20143
+------------------------------
+validation errors:
+_0 0.702703
+_1 0.097561
+_2 0.342857
+_3 0.666667
+_4 0.40625
+_5 0.125
+_6 0.4
+_7 0.421053
+_8 1
+_9 0.512821
+classificationError 45.1827%
+crossEntropyError 1.62592
+------------------------------
+test errors:
+_0 0.777778
+_1 0.137931
+_2 0.48
+_3 0.4
+_4 0.37037
+_5 0.128205
+_6 0.172414
+_7 0.538462
+_8 1
+_9 0.147059
+classificationError 41.196%
+crossEntropyError 1.57283
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 85 took 25.3223 seconds (0.0279804 secs/seq, 815.566 its/sec, 20.8047 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.197917
+_2 0.306122
+_3 0.223214
+_4 0.2
+_5 0.311111
+_6 0.345679
+_7 0.447059
+_8 0.391892
+_9 0.243902
+classificationError 30.7182%
+crossEntropyError 1.05965
+------------------------------
+validation errors:
+_0 0.162162
+_1 0.243902
+_2 0.171429
+_3 0.4
+_4 0.1875
+_5 0.34375
+_6 0.55
+_7 0.526316
+_8 0.483871
+_9 0.153846
+classificationError 28.9037%
+crossEntropyError 1.12829
+------------------------------
+test errors:
+_0 0.305556
+_1 0.310345
+_2 0.2
+_3 0.32
+_4 0.185185
+_5 0.564103
+_6 0.586207
+_7 0.692308
+_8 0.677419
+_9 0.0294118
+classificationError 38.8704%
+crossEntropyError 1.21766
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 86 took 25.3292 seconds (0.0279881 secs/seq, 815.344 its/sec, 20.799 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.347826
+_1 0.208333
+_2 0.255102
+_3 0.241071
+_4 0.2
+_5 0.355556
+_6 0.382716
+_7 0.482353
+_8 0.324324
+_9 0.243902
+classificationError 29.9448%
+crossEntropyError 1.03404
+------------------------------
+validation errors:
+_0 0.567568
+_1 0.146341
+_2 0.542857
+_3 0.533333
+_4 0.09375
+_5 0.03125
+_6 0.65
+_7 0.789474
+_8 1
+_9 0.307692
+classificationError 42.8571%
+crossEntropyError 1.68952
+------------------------------
+test errors:
+_0 0.75
+_1 0.206897
+_2 0.6
+_3 0.24
+_4 0.148148
+_5 0.102564
+_6 0.551724
+_7 0.961538
+_8 1
+_9 0.117647
+classificationError 45.8472%
+crossEntropyError 1.58616
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 87 took 25.4273 seconds (0.0280964 secs/seq, 812.199 its/sec, 20.7188 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.166667
+_2 0.234694
+_3 0.232143
+_4 0.221053
+_5 0.388889
+_6 0.333333
+_7 0.470588
+_8 0.432432
+_9 0.243902
+classificationError 31.2707%
+crossEntropyError 1.02145
+------------------------------
+validation errors:
+_0 0.513514
+_1 0.097561
+_2 0.457143
+_3 0.4
+_4 0.3125
+_5 0.28125
+_6 0.6
+_7 0.210526
+_8 0.193548
+_9 0.153846
+classificationError 30.5648%
+crossEntropyError 1.14171
+------------------------------
+test errors:
+_0 0.805556
+_1 0.275862
+_2 0.6
+_3 0.44
+_4 0.296296
+_5 0.384615
+_6 0.551724
+_7 0.0769231
+_8 0.0967742
+_9 0.0588235
+classificationError 36.2126%
+crossEntropyError 1.23252
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 88 took 25.3782 seconds (0.0280422 secs/seq, 813.77 its/sec, 20.7589 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.208333
+_2 0.397959
+_3 0.267857
+_4 0.2
+_5 0.344444
+_6 0.320988
+_7 0.447059
+_8 0.337838
+_9 0.256098
+classificationError 32.5967%
+crossEntropyError 1.05164
+------------------------------
+validation errors:
+_0 0.405405
+_1 0.268293
+_2 0.285714
+_3 0.266667
+_4 0.34375
+_5 0.09375
+_6 0.55
+_7 0.263158
+_8 0.516129
+_9 0.205128
+classificationError 31.2292%
+crossEntropyError 1.16647
+------------------------------
+test errors:
+_0 0.611111
+_1 0.310345
+_2 0.48
+_3 0.16
+_4 0.444444
+_5 0.153846
+_6 0.413793
+_7 0.307692
+_8 0.483871
+_9 0.0588235
+classificationError 33.887%
+crossEntropyError 1.1157
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 89 took 25.3077 seconds (0.0279643 secs/seq, 816.037 its/sec, 20.8167 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.402174
+_1 0.197917
+_2 0.27551
+_3 0.267857
+_4 0.252632
+_5 0.377778
+_6 0.320988
+_7 0.482353
+_8 0.364865
+_9 0.280488
+classificationError 31.8232%
+crossEntropyError 1.00572
+------------------------------
+validation errors:
+_0 0.297297
+_1 0.268293
+_2 0.257143
+_3 0.2
+_4 0.21875
+_5 0.1875
+_6 0.6
+_7 0.578947
+_8 0.483871
+_9 0.179487
+classificationError 30.5648%
+crossEntropyError 1.11525
+------------------------------
+test errors:
+_0 0.333333
+_1 0.241379
+_2 0.32
+_3 0.24
+_4 0.148148
+_5 0.410256
+_6 0.413793
+_7 0.576923
+_8 0.516129
+_9 0.0588235
+classificationError 32.5581%
+crossEntropyError 1.09276
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 90 took 25.4627 seconds (0.0281356 secs/seq, 811.068 its/sec, 20.69 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.1875
+_2 0.306122
+_3 0.258929
+_4 0.221053
+_5 0.355556
+_6 0.333333
+_7 0.482353
+_8 0.351351
+_9 0.231707
+classificationError 31.4917%
+crossEntropyError 1.00528
+------------------------------
+validation errors:
+_0 0.594595
+_1 0.585366
+_2 0.914286
+_3 0.0666667
+_4 0.5
+_5 0.15625
+_6 0.1
+_7 0.157895
+_8 0.903226
+_9 0.589744
+classificationError 51.8272%
+crossEntropyError 2.02867
+------------------------------
+test errors:
+_0 0.75
+_1 0.62069
+_2 0.8
+_3 0.04
+_4 0.740741
+_5 0.179487
+_6 0.0344828
+_7 0.423077
+_8 0.83871
+_9 0.176471
+classificationError 45.515%
+crossEntropyError 1.72573
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 91 took 25.3834 seconds (0.0280479 secs/seq, 813.604 its/sec, 20.7546 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.21875
+_2 0.346939
+_3 0.223214
+_4 0.2
+_5 0.366667
+_6 0.481481
+_7 0.517647
+_8 0.283784
+_9 0.195122
+classificationError 32.5967%
+crossEntropyError 1.00721
+------------------------------
+validation errors:
+_0 0.351351
+_1 0.219512
+_2 0.285714
+_3 0.133333
+_4 0.25
+_5 0.15625
+_6 0.35
+_7 0.315789
+_8 0.225806
+_9 0.205128
+classificationError 24.9169%
+crossEntropyError 1.0888
+------------------------------
+test errors:
+_0 0.666667
+_1 0.275862
+_2 0.28
+_3 0.16
+_4 0.185185
+_5 0.25641
+_6 0.310345
+_7 0.461538
+_8 0.16129
+_9 0.117647
+classificationError 29.2359%
+crossEntropyError 1.12986
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 92 took 25.3019 seconds (0.0279579 secs/seq, 816.224 its/sec, 20.8215 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.197917
+_2 0.346939
+_3 0.223214
+_4 0.252632
+_5 0.288889
+_6 0.345679
+_7 0.458824
+_8 0.364865
+_9 0.292683
+classificationError 32.0442%
+crossEntropyError 1.01362
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.146341
+_2 0.228571
+_3 0.266667
+_4 0.21875
+_5 0.4375
+_6 0.55
+_7 0.473684
+_8 0.0967742
+_9 0.179487
+classificationError 26.2458%
+crossEntropyError 1.02606
+------------------------------
+test errors:
+_0 0.361111
+_1 0.241379
+_2 0.6
+_3 0.44
+_4 0.259259
+_5 0.538462
+_6 0.448276
+_7 0.576923
+_8 0.225806
+_9 0.0882353
+classificationError 37.2093%
+crossEntropyError 1.14628
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.05.31-14.31.13.574989.best_crossEntropyError.save
+
+epoch 93 took 25.3713 seconds (0.0280346 secs/seq, 813.991 its/sec, 20.7645 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.445652
+_1 0.25
+_2 0.265306
+_3 0.276786
+_4 0.168421
+_5 0.311111
+_6 0.345679
+_7 0.470588
+_8 0.256757
+_9 0.195122
+classificationError 29.7238%
+crossEntropyError 0.962186
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.317073
+_2 0.142857
+_3 0.0666667
+_4 0.125
+_5 0.25
+_6 0.45
+_7 0.368421
+_8 0.741935
+_9 0.205128
+classificationError 28.9037%
+crossEntropyError 1.20294
+------------------------------
+test errors:
+_0 0.222222
+_1 0.413793
+_2 0.36
+_3 0.28
+_4 0.148148
+_5 0.410256
+_6 0.275862
+_7 0.461538
+_8 0.806452
+_9 0.0882353
+classificationError 34.5515%
+crossEntropyError 1.19923
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 94 took 25.3462 seconds (0.0280069 secs/seq, 814.796 its/sec, 20.7851 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.586957
+_1 0.270833
+_2 0.418367
+_3 0.294643
+_4 0.2
+_5 0.366667
+_6 0.469136
+_7 0.541176
+_8 0.405405
+_9 0.219512
+classificationError 37.3481%
+crossEntropyError 1.2541
+------------------------------
+validation errors:
+_0 0.486486
+_1 0.121951
+_2 0.485714
+_3 0.533333
+_4 0.28125
+_5 0.21875
+_6 0.8
+_7 0.0526316
+_8 0.677419
+_9 0.230769
+classificationError 36.8771%
+crossEntropyError 1.36061
+------------------------------
+test errors:
+_0 0.666667
+_1 0.172414
+_2 0.56
+_3 0.44
+_4 0.296296
+_5 0.461538
+_6 0.689655
+_7 0.0769231
+_8 0.483871
+_9 0.235294
+classificationError 41.5282%
+crossEntropyError 1.45702
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 95 took 25.2558 seconds (0.027907 secs/seq, 817.713 its/sec, 20.8595 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.48913
+_1 0.25
+_2 0.489796
+_3 0.267857
+_4 0.263158
+_5 0.322222
+_6 0.45679
+_7 0.564706
+_8 0.445946
+_9 0.292683
+classificationError 37.9006%
+crossEntropyError 1.23802
+------------------------------
+validation errors:
+_0 0.567568
+_1 0.170732
+_2 0.342857
+_3 0.533333
+_4 0.25
+_5 0.28125
+_6 0.6
+_7 0.105263
+_8 0.290323
+_9 0.179487
+classificationError 31.5615%
+crossEntropyError 1.24656
+------------------------------
+test errors:
+_0 0.722222
+_1 0.275862
+_2 0.4
+_3 0.52
+_4 0.222222
+_5 0.512821
+_6 0.655172
+_7 0.115385
+_8 0.258065
+_9 0.117647
+classificationError 38.8704%
+crossEntropyError 1.40216
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 96 took 25.4633 seconds (0.0281362 secs/seq, 811.05 its/sec, 20.6895 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.445652
+_1 0.302083
+_2 0.55102
+_3 0.401786
+_4 0.2
+_5 0.4
+_6 0.432099
+_7 0.517647
+_8 0.378378
+_9 0.341463
+classificationError 39.6685%
+crossEntropyError 1.25157
+------------------------------
+validation errors:
+_0 0.108108
+_1 0.146341
+_2 0.714286
+_3 0.333333
+_4 0.125
+_5 0.78125
+_6 0.65
+_7 0.894737
+_8 0.903226
+_9 0.512821
+classificationError 48.8372%
+crossEntropyError 1.6229
+------------------------------
+test errors:
+_0 0.166667
+_1 0.241379
+_2 0.88
+_3 0.24
+_4 0.185185
+_5 0.846154
+_6 0.724138
+_7 0.923077
+_8 0.935484
+_9 0.294118
+classificationError 54.1528%
+crossEntropyError 1.75322
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 97 took 25.3726 seconds (0.0280361 secs/seq, 813.948 its/sec, 20.7634 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.48913
+_1 0.21875
+_2 0.479592
+_3 0.294643
+_4 0.210526
+_5 0.4
+_6 0.45679
+_7 0.541176
+_8 0.486486
+_9 0.280488
+classificationError 38.011%
+crossEntropyError 1.14348
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.170732
+_2 0.314286
+_3 0.533333
+_4 0.5625
+_5 0.09375
+_6 1
+_7 0.0526316
+_8 1
+_9 0.435897
+classificationError 44.186%
+crossEntropyError 1.68133
+------------------------------
+test errors:
+_0 0.722222
+_1 0.310345
+_2 0.56
+_3 0.24
+_4 0.666667
+_5 0.102564
+_6 0.931034
+_7 0.0769231
+_8 0.967742
+_9 0.235294
+classificationError 47.8405%
+crossEntropyError 1.68363
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 98 took 25.4156 seconds (0.0280835 secs/seq, 812.573 its/sec, 20.7283 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.25
+_2 0.469388
+_3 0.375
+_4 0.273684
+_5 0.333333
+_6 0.382716
+_7 0.494118
+_8 0.472973
+_9 0.280488
+classificationError 37.9006%
+crossEntropyError 1.15844
+------------------------------
+validation errors:
+_0 0.378378
+_1 0.0487805
+_2 0.514286
+_3 0.8
+_4 0.09375
+_5 0.28125
+_6 0.6
+_7 0.736842
+_8 0.258065
+_9 0.205128
+classificationError 33.2226%
+crossEntropyError 1.16207
+------------------------------
+test errors:
+_0 0.666667
+_1 0.103448
+_2 0.48
+_3 0.84
+_4 0.148148
+_5 0.435897
+_6 0.655172
+_7 0.769231
+_8 0.419355
+_9 0.117647
+classificationError 45.515%
+crossEntropyError 1.3544
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 99 took 25.4052 seconds (0.028072 secs/seq, 812.905 its/sec, 20.7368 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.51087
+_1 0.260417
+_2 0.418367
+_3 0.321429
+_4 0.273684
+_5 0.355556
+_6 0.395062
+_7 0.447059
+_8 0.391892
+_9 0.243902
+classificationError 36.0221%
+crossEntropyError 1.08953
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.463415
+_2 0.314286
+_3 0.666667
+_4 0.125
+_5 0.21875
+_6 0.55
+_7 0.473684
+_8 0.516129
+_9 0.410256
+classificationError 37.2093%
+crossEntropyError 1.38534
+------------------------------
+test errors:
+_0 0.5
+_1 0.551724
+_2 0.4
+_3 0.68
+_4 0.148148
+_5 0.307692
+_6 0.448276
+_7 0.423077
+_8 0.645161
+_9 0.323529
+classificationError 43.8538%
+crossEntropyError 1.38433
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 100 took 25.6579 seconds (0.0283513 secs/seq, 804.897 its/sec, 20.5325 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.391304
+_1 0.25
+_2 0.367347
+_3 0.294643
+_4 0.263158
+_5 0.366667
+_6 0.358025
+_7 0.470588
+_8 0.391892
+_9 0.280488
+classificationError 34.0331%
+crossEntropyError 1.07314
+------------------------------
+validation errors:
+_0 0.540541
+_1 0.292683
+_2 0.4
+_3 0.266667
+_4 0.1875
+_5 0.40625
+_6 0.5
+_7 0.473684
+_8 0.225806
+_9 0.179487
+classificationError 33.887%
+crossEntropyError 1.28757
+------------------------------
+test errors:
+_0 0.777778
+_1 0.310345
+_2 0.56
+_3 0.2
+_4 0.296296
+_5 0.538462
+_6 0.482759
+_7 0.576923
+_8 0.322581
+_9 0.0294118
+classificationError 41.5282%
+crossEntropyError 1.3576
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 101 took 25.3962 seconds (0.0280621 secs/seq, 813.192 its/sec, 20.7441 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.28125
+_2 0.418367
+_3 0.241071
+_4 0.263158
+_5 0.288889
+_6 0.345679
+_7 0.458824
+_8 0.432432
+_9 0.280488
+classificationError 34.4751%
+crossEntropyError 1.10788
+------------------------------
+validation errors:
+_0 0.72973
+_1 0.268293
+_2 0.6
+_3 0.6
+_4 0.125
+_5 0.125
+_6 0.4
+_7 0.684211
+_8 0.483871
+_9 0.179487
+classificationError 39.5349%
+crossEntropyError 1.49258
+------------------------------
+test errors:
+_0 0.916667
+_1 0.37931
+_2 0.64
+_3 0.36
+_4 0.222222
+_5 0.179487
+_6 0.103448
+_7 0.730769
+_8 0.548387
+_9 0.235294
+classificationError 42.8571%
+crossEntropyError 1.44292
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 102 took 25.45 seconds (0.0281215 secs/seq, 811.475 its/sec, 20.7003 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.5
+_1 0.229167
+_2 0.27551
+_3 0.285714
+_4 0.231579
+_5 0.288889
+_6 0.345679
+_7 0.482353
+_8 0.337838
+_9 0.231707
+classificationError 31.8232%
+crossEntropyError 1.08205
+------------------------------
+validation errors:
+_0 0.297297
+_1 0.268293
+_2 0.542857
+_3 0.133333
+_4 0.21875
+_5 0.3125
+_6 0.15
+_7 0.473684
+_8 0.129032
+_9 0.410256
+classificationError 30.5648%
+crossEntropyError 1.21037
+------------------------------
+test errors:
+_0 0.472222
+_1 0.310345
+_2 0.4
+_3 0.12
+_4 0.259259
+_5 0.615385
+_6 0.0344828
+_7 0.538462
+_8 0.290323
+_9 0.235294
+classificationError 33.887%
+crossEntropyError 1.22432
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 103 took 25.2689 seconds (0.0279214 secs/seq, 817.29 its/sec, 20.8487 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.402174
+_1 0.1875
+_2 0.346939
+_3 0.303571
+_4 0.178947
+_5 0.322222
+_6 0.419753
+_7 0.317647
+_8 0.351351
+_9 0.231707
+classificationError 30.3867%
+crossEntropyError 0.967581
+------------------------------
+validation errors:
+_0 0.513514
+_1 0.121951
+_2 0.542857
+_3 0.0666667
+_4 0.1875
+_5 0.59375
+_6 0.25
+_7 0.210526
+_8 0.290323
+_9 0.179487
+classificationError 31.2292%
+crossEntropyError 1.22754
+------------------------------
+test errors:
+_0 0.75
+_1 0.206897
+_2 0.68
+_3 0.12
+_4 0.37037
+_5 0.666667
+_6 0.0689655
+_7 0.269231
+_8 0.419355
+_9 0.0588235
+classificationError 37.5415%
+crossEntropyError 1.3552
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 104 took 25.7112 seconds (0.0284102 secs/seq, 803.229 its/sec, 20.49 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.478261
+_1 0.1875
+_2 0.326531
+_3 0.294643
+_4 0.231579
+_5 0.355556
+_6 0.37037
+_7 0.4
+_8 0.310811
+_9 0.292683
+classificationError 32.2652%
+crossEntropyError 1.02529
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.317073
+_2 0.542857
+_3 0.466667
+_4 0.25
+_5 0.3125
+_6 0.55
+_7 0.263158
+_8 0.516129
+_9 0.102564
+classificationError 34.2193%
+crossEntropyError 1.19319
+------------------------------
+test errors:
+_0 0.5
+_1 0.310345
+_2 0.52
+_3 0.28
+_4 0.259259
+_5 0.358974
+_6 0.413793
+_7 0.269231
+_8 0.677419
+_9 0.0294118
+classificationError 36.2126%
+crossEntropyError 1.11256
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 105 took 25.3613 seconds (0.0280236 secs/seq, 814.311 its/sec, 20.7727 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.413043
+_1 0.208333
+_2 0.27551
+_3 0.205357
+_4 0.189474
+_5 0.322222
+_6 0.37037
+_7 0.364706
+_8 0.297297
+_9 0.207317
+classificationError 28.1768%
+crossEntropyError 0.919412
+------------------------------
+validation errors:
+_0 0.378378
+_1 0.219512
+_2 0.171429
+_3 0.4
+_4 0.125
+_5 0.25
+_6 0.75
+_7 0.736842
+_8 0.129032
+_9 0.205128
+classificationError 29.2359%
+crossEntropyError 1.19022
+------------------------------
+test errors:
+_0 0.611111
+_1 0.206897
+_2 0.28
+_3 0.24
+_4 0.222222
+_5 0.333333
+_6 0.793103
+_7 0.807692
+_8 0.290323
+_9 0.0882353
+classificationError 38.5382%
+crossEntropyError 1.32447
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 106 took 25.4871 seconds (0.0281625 secs/seq, 810.292 its/sec, 20.6702 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.380435
+_1 0.25
+_2 0.295918
+_3 0.25
+_4 0.231579
+_5 0.322222
+_6 0.308642
+_7 0.388235
+_8 0.283784
+_9 0.231707
+classificationError 29.2818%
+crossEntropyError 1.01064
+------------------------------
+validation errors:
+_0 0.432432
+_1 0.292683
+_2 0.228571
+_3 0.533333
+_4 0.09375
+_5 0.0625
+_6 0.5
+_7 0.578947
+_8 0.677419
+_9 0.384615
+classificationError 35.2159%
+crossEntropyError 1.29079
+------------------------------
+test errors:
+_0 0.722222
+_1 0.310345
+_2 0.28
+_3 0.64
+_4 0.148148
+_5 0.153846
+_6 0.310345
+_7 0.423077
+_8 0.709677
+_9 0.117647
+classificationError 37.8738%
+crossEntropyError 1.23647
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 107 took 25.6273 seconds (0.0283175 secs/seq, 805.859 its/sec, 20.5571 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.402174
+_1 0.239583
+_2 0.316327
+_3 0.285714
+_4 0.2
+_5 0.288889
+_6 0.308642
+_7 0.423529
+_8 0.364865
+_9 0.243902
+classificationError 30.4972%
+crossEntropyError 0.98111
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.146341
+_2 0.371429
+_3 0.333333
+_4 0.15625
+_5 0.1875
+_6 0.5
+_7 0.736842
+_8 0.774194
+_9 0.153846
+classificationError 32.8904%
+crossEntropyError 1.34281
+------------------------------
+test errors:
+_0 0.361111
+_1 0.172414
+_2 0.52
+_3 0.24
+_4 0.296296
+_5 0.230769
+_6 0.517241
+_7 0.807692
+_8 0.870968
+_9 0.0882353
+classificationError 39.8671%
+crossEntropyError 1.2474
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 108 took 25.5918 seconds (0.0282782 secs/seq, 806.978 its/sec, 20.5856 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.423913
+_1 0.166667
+_2 0.377551
+_3 0.258929
+_4 0.242105
+_5 0.333333
+_6 0.419753
+_7 0.494118
+_8 0.391892
+_9 0.329268
+classificationError 33.8122%
+crossEntropyError 1.05875
+------------------------------
+validation errors:
+_0 0.135135
+_1 0.146341
+_2 0.485714
+_3 0.133333
+_4 0.125
+_5 0.375
+_6 0.35
+_7 0.421053
+_8 0.612903
+_9 0.282051
+classificationError 30.2326%
+crossEntropyError 1.15118
+------------------------------
+test errors:
+_0 0.222222
+_1 0.206897
+_2 0.56
+_3 0.12
+_4 0.185185
+_5 0.589744
+_6 0.37931
+_7 0.346154
+_8 0.83871
+_9 0.235294
+classificationError 37.5415%
+crossEntropyError 1.20838
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 109 took 25.5723 seconds (0.0282567 secs/seq, 807.593 its/sec, 20.6013 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.391304
+_1 0.177083
+_2 0.295918
+_3 0.205357
+_4 0.210526
+_5 0.355556
+_6 0.419753
+_7 0.458824
+_8 0.310811
+_9 0.280488
+classificationError 30.4972%
+crossEntropyError 0.987483
+------------------------------
+validation errors:
+_0 0.135135
+_1 0.0731707
+_2 0.514286
+_3 0.533333
+_4 0.34375
+_5 0.46875
+_6 0.45
+_7 0.0526316
+_8 0.451613
+_9 0.230769
+classificationError 30.897%
+crossEntropyError 1.1189
+------------------------------
+test errors:
+_0 0.166667
+_1 0.103448
+_2 0.48
+_3 0.44
+_4 0.37037
+_5 0.538462
+_6 0.62069
+_7 0.0384615
+_8 0.580645
+_9 0.176471
+classificationError 35.2159%
+crossEntropyError 1.231
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 110 took 25.3954 seconds (0.0280612 secs/seq, 813.217 its/sec, 20.7448 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.413043
+_1 0.177083
+_2 0.295918
+_3 0.3125
+_4 0.210526
+_5 0.333333
+_6 0.333333
+_7 0.364706
+_8 0.297297
+_9 0.243902
+classificationError 29.7238%
+crossEntropyError 0.978109
+------------------------------
+validation errors:
+_0 0.459459
+_1 0.390244
+_2 0.114286
+_3 0.8
+_4 0.4375
+_5 0.1875
+_6 0.5
+_7 0.157895
+_8 0.16129
+_9 0.153846
+classificationError 30.897%
+crossEntropyError 1.24259
+------------------------------
+test errors:
+_0 0.666667
+_1 0.310345
+_2 0.28
+_3 0.72
+_4 0.592593
+_5 0.230769
+_6 0.37931
+_7 0.307692
+_8 0.129032
+_9 0.0294118
+classificationError 35.5482%
+crossEntropyError 1.27186
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 111 took 25.2912 seconds (0.0279461 secs/seq, 816.568 its/sec, 20.8302 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.260417
+_2 0.285714
+_3 0.232143
+_4 0.231579
+_5 0.388889
+_6 0.37037
+_7 0.4
+_8 0.418919
+_9 0.280488
+classificationError 32.7072%
+crossEntropyError 1.03988
+------------------------------
+validation errors:
+_0 0.486486
+_1 0.341463
+_2 0.314286
+_3 0.333333
+_4 0.0625
+_5 0.28125
+_6 0.3
+_7 0.894737
+_8 0.129032
+_9 0.282051
+classificationError 32.2259%
+crossEntropyError 1.26317
+------------------------------
+test errors:
+_0 0.777778
+_1 0.448276
+_2 0.32
+_3 0.32
+_4 0.111111
+_5 0.435897
+_6 0.137931
+_7 0.961538
+_8 0.16129
+_9 0.147059
+classificationError 38.5382%
+crossEntropyError 1.28143
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 112 took 26.1428 seconds (0.0288871 secs/seq, 789.969 its/sec, 20.1517 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.239583
+_2 0.306122
+_3 0.285714
+_4 0.221053
+_5 0.333333
+_6 0.37037
+_7 0.388235
+_8 0.364865
+_9 0.243902
+classificationError 31.9337%
+crossEntropyError 1.00151
+------------------------------
+validation errors:
+_0 0.243243
+_1 0.268293
+_2 0.571429
+_3 0.266667
+_4 0.125
+_5 0.25
+_6 0.25
+_7 0.684211
+_8 0.870968
+_9 0.179487
+classificationError 35.8804%
+crossEntropyError 1.31186
+------------------------------
+test errors:
+_0 0.388889
+_1 0.344828
+_2 0.6
+_3 0.24
+_4 0.222222
+_5 0.358974
+_6 0.137931
+_7 0.576923
+_8 0.903226
+_9 0.0588235
+classificationError 37.8738%
+crossEntropyError 1.26192
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 113 took 25.465 seconds (0.0281381 secs/seq, 810.995 its/sec, 20.6881 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.413043
+_1 0.208333
+_2 0.285714
+_3 0.294643
+_4 0.242105
+_5 0.288889
+_6 0.308642
+_7 0.435294
+_8 0.459459
+_9 0.243902
+classificationError 31.3812%
+crossEntropyError 1.02464
+------------------------------
+validation errors:
+_0 0.324324
+_1 0.121951
+_2 0.6
+_3 0.4
+_4 0.25
+_5 0.21875
+_6 0.25
+_7 0.368421
+_8 0.580645
+_9 0.820513
+classificationError 40.1993%
+crossEntropyError 1.3086
+------------------------------
+test errors:
+_0 0.388889
+_1 0.137931
+_2 0.68
+_3 0.2
+_4 0.259259
+_5 0.230769
+_6 0.103448
+_7 0.423077
+_8 0.741935
+_9 0.705882
+classificationError 38.8704%
+crossEntropyError 1.12186
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 114 took 26.2188 seconds (0.0289711 secs/seq, 787.679 its/sec, 20.0933 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.391304
+_1 0.177083
+_2 0.357143
+_3 0.267857
+_4 0.252632
+_5 0.311111
+_6 0.37037
+_7 0.305882
+_8 0.405405
+_9 0.292683
+classificationError 30.9392%
+crossEntropyError 1.04262
+------------------------------
+validation errors:
+_0 0.513514
+_1 0.268293
+_2 0.342857
+_3 0.6
+_4 0.28125
+_5 0.125
+_6 0.15
+_7 0.578947
+_8 0.129032
+_9 0.179487
+classificationError 29.5681%
+crossEntropyError 1.16403
+------------------------------
+test errors:
+_0 0.638889
+_1 0.344828
+_2 0.4
+_3 0.44
+_4 0.333333
+_5 0.230769
+_6 0.172414
+_7 0.692308
+_8 0.0645161
+_9 0.0882353
+classificationError 33.2226%
+crossEntropyError 1.14212
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 115 took 25.6881 seconds (0.0283846 secs/seq, 803.952 its/sec, 20.5084 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.413043
+_1 0.208333
+_2 0.295918
+_3 0.276786
+_4 0.273684
+_5 0.355556
+_6 0.382716
+_7 0.317647
+_8 0.432432
+_9 0.304878
+classificationError 32.1547%
+crossEntropyError 1.01135
+------------------------------
+validation errors:
+_0 0.0540541
+_1 0.317073
+_2 0.314286
+_3 0.4
+_4 0.3125
+_5 0.4375
+_6 0.8
+_7 0.263158
+_8 0.870968
+_9 0.128205
+classificationError 36.2126%
+crossEntropyError 1.34233
+------------------------------
+test errors:
+_0 0.0833333
+_1 0.275862
+_2 0.44
+_3 0.2
+_4 0.296296
+_5 0.641026
+_6 0.758621
+_7 0.230769
+_8 0.903226
+_9 0.0588235
+classificationError 39.2027%
+crossEntropyError 1.3787
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 116 took 25.3974 seconds (0.0280634 secs/seq, 813.155 its/sec, 20.7432 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.336957
+_1 0.166667
+_2 0.285714
+_3 0.205357
+_4 0.210526
+_5 0.322222
+_6 0.37037
+_7 0.388235
+_8 0.351351
+_9 0.219512
+classificationError 28.0663%
+crossEntropyError 0.975273
+------------------------------
+validation errors:
+_0 0.540541
+_1 0.097561
+_2 0.342857
+_3 0.666667
+_4 0.25
+_5 0.0625
+_6 0.55
+_7 0.0526316
+_8 0.677419
+_9 0.230769
+classificationError 32.5581%
+crossEntropyError 1.25659
+------------------------------
+test errors:
+_0 0.694444
+_1 0.103448
+_2 0.44
+_3 0.48
+_4 0.333333
+_5 0.102564
+_6 0.517241
+_7 0.115385
+_8 0.741935
+_9 0.0882353
+classificationError 35.8804%
+crossEntropyError 1.1733
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 117 took 25.4028 seconds (0.0280694 secs/seq, 812.981 its/sec, 20.7388 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.369565
+_1 0.229167
+_2 0.377551
+_3 0.267857
+_4 0.242105
+_5 0.355556
+_6 0.395062
+_7 0.4
+_8 0.445946
+_9 0.195122
+classificationError 32.3757%
+crossEntropyError 1.00947
+------------------------------
+validation errors:
+_0 0.567568
+_1 0.219512
+_2 0.314286
+_3 0.533333
+_4 0.125
+_5 0.125
+_6 0.4
+_7 0.789474
+_8 0.451613
+_9 0.153846
+classificationError 33.2226%
+crossEntropyError 1.1775
+------------------------------
+test errors:
+_0 0.583333
+_1 0.275862
+_2 0.52
+_3 0.4
+_4 0.296296
+_5 0.25641
+_6 0.206897
+_7 0.653846
+_8 0.387097
+_9 0.0294118
+classificationError 35.2159%
+crossEntropyError 1.19782
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 118 took 25.3235 seconds (0.0279817 secs/seq, 815.528 its/sec, 20.8037 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.456522
+_1 0.208333
+_2 0.377551
+_3 0.241071
+_4 0.189474
+_5 0.344444
+_6 0.382716
+_7 0.447059
+_8 0.364865
+_9 0.292683
+classificationError 32.5967%
+crossEntropyError 1.0934
+------------------------------
+validation errors:
+_0 0.27027
+_1 0.170732
+_2 0.171429
+_3 1
+_4 0.28125
+_5 0.46875
+_6 0.2
+_7 0.157895
+_8 0.709677
+_9 0.179487
+classificationError 32.5581%
+crossEntropyError 1.37768
+------------------------------
+test errors:
+_0 0.472222
+_1 0.275862
+_2 0.2
+_3 1
+_4 0.259259
+_5 0.692308
+_6 0.172414
+_7 0.230769
+_8 0.806452
+_9 0.0588235
+classificationError 42.1927%
+crossEntropyError 1.49487
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 119 took 25.3348 seconds (0.0279942 secs/seq, 815.165 its/sec, 20.7945 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.423913
+_1 0.21875
+_2 0.408163
+_3 0.357143
+_4 0.347368
+_5 0.3
+_6 0.395062
+_7 0.352941
+_8 0.378378
+_9 0.353659
+classificationError 35.2486%
+crossEntropyError 1.07891
+------------------------------
+validation errors:
+_0 0.162162
+_1 0.170732
+_2 0.428571
+_3 0.333333
+_4 0.28125
+_5 0.375
+_6 0.6
+_7 0.157895
+_8 0.354839
+_9 0.179487
+classificationError 28.9037%
+crossEntropyError 1.20571
+------------------------------
+test errors:
+_0 0.194444
+_1 0.172414
+_2 0.52
+_3 0.28
+_4 0.407407
+_5 0.512821
+_6 0.586207
+_7 0.153846
+_8 0.483871
+_9 0.0588235
+classificationError 33.5548%
+crossEntropyError 1.1572
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 120 took 25.3834 seconds (0.028048 secs/seq, 813.601 its/sec, 20.7546 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.467391
+_1 0.229167
+_2 0.346939
+_3 0.232143
+_4 0.263158
+_5 0.344444
+_6 0.395062
+_7 0.329412
+_8 0.486486
+_9 0.195122
+classificationError 32.3757%
+crossEntropyError 1.01858
+------------------------------
+validation errors:
+_0 0.108108
+_1 0.219512
+_2 0.457143
+_3 0.2
+_4 0.15625
+_5 0.4375
+_6 0.25
+_7 0.789474
+_8 0.709677
+_9 0.230769
+classificationError 33.887%
+crossEntropyError 1.236
+------------------------------
+test errors:
+_0 0.138889
+_1 0.206897
+_2 0.48
+_3 0.16
+_4 0.148148
+_5 0.435897
+_6 0.103448
+_7 0.769231
+_8 0.774194
+_9 0.117647
+classificationError 32.8904%
+crossEntropyError 1.09591
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 121 took 25.3158 seconds (0.0279732 secs/seq, 815.776 its/sec, 20.81 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.413043
+_1 0.260417
+_2 0.397959
+_3 0.205357
+_4 0.189474
+_5 0.311111
+_6 0.320988
+_7 0.423529
+_8 0.405405
+_9 0.219512
+classificationError 31.0497%
+crossEntropyError 1.00523
+------------------------------
+validation errors:
+_0 0.108108
+_1 0.0487805
+_2 0.228571
+_3 0.866667
+_4 0.21875
+_5 0.40625
+_6 0.3
+_7 0.526316
+_8 0.580645
+_9 0.205128
+classificationError 29.5681%
+crossEntropyError 1.17591
+------------------------------
+test errors:
+_0 0.166667
+_1 0.137931
+_2 0.32
+_3 0.6
+_4 0.148148
+_5 0.487179
+_6 0.241379
+_7 0.5
+_8 0.677419
+_9 0.205882
+classificationError 34.5515%
+crossEntropyError 1.1599
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 122 took 25.3213 seconds (0.0279793 secs/seq, 815.599 its/sec, 20.8055 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.369565
+_1 0.208333
+_2 0.326531
+_3 0.241071
+_4 0.2
+_5 0.344444
+_6 0.419753
+_7 0.341176
+_8 0.391892
+_9 0.256098
+classificationError 30.4972%
+crossEntropyError 0.996407
+------------------------------
+validation errors:
+_0 0.135135
+_1 0.0487805
+_2 0.457143
+_3 0.333333
+_4 0.34375
+_5 0.375
+_6 0.75
+_7 0
+_8 0.548387
+_9 0.307692
+classificationError 31.5615%
+crossEntropyError 1.17607
+------------------------------
+test errors:
+_0 0.277778
+_1 0.103448
+_2 0.44
+_3 0.32
+_4 0.37037
+_5 0.615385
+_6 0.862069
+_7 0.115385
+_8 0.645161
+_9 0.235294
+classificationError 40.5316%
+crossEntropyError 1.32871
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+epoch 123 took 25.3329 seconds (0.0279921 secs/seq, 815.226 its/sec, 20.796 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.369565
+_1 0.166667
+_2 0.336735
+_3 0.258929
+_4 0.273684
+_5 0.366667
+_6 0.432099
+_7 0.494118
+_8 0.391892
+_9 0.304878
+classificationError 33.3702%
+crossEntropyError 1.03852
+------------------------------
+validation errors:
+_0 0.135135
+_1 0.0487805
+_2 0.371429
+_3 0.933333
+_4 0.125
+_5 0.21875
+_6 0.3
+_7 0.684211
+_8 0.580645
+_9 0.282051
+classificationError 30.897%
+crossEntropyError 1.0861
+------------------------------
+test errors:
+_0 0.166667
+_1 0.103448
+_2 0.32
+_3 0.76
+_4 0.222222
+_5 0.282051
+_6 0.241379
+_7 0.692308
+_8 0.483871
+_9 0.205882
+classificationError 33.2226%
+crossEntropyError 1.06637
+------------------------------
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+31 error tests without best, ending training
+saving to sequence_classification@2014.05.31-14.31.13.574989.last.save
+
+training finished, 124 epochs in total
+124 epochs in 1 hour 5 minutes 10.3574 seconds(this session)
+
+train set errors for best networks
+------------------------------
+epoch 76 (classificationError)
+_0 0.467391
+_1 0.260417
+_2 0.316327
+_3 0.241071
+_4 0.168421
+_5 0.311111
+_6 0.419753
+_7 0.458824
+_8 0.432432
+_9 0.219512
+classificationError 32.3757%
+crossEntropyError 1.04637
+------------------------------
+epoch 93 (crossEntropyError)
+_0 0.478261
+_1 0.197917
+_2 0.346939
+_3 0.223214
+_4 0.252632
+_5 0.288889
+_6 0.345679
+_7 0.458824
+_8 0.364865
+_9 0.292683
+classificationError 32.0442%
+crossEntropyError 1.01362
+
+validation set errors for best networks
+------------------------------
+epoch 76 (classificationError)
+_0 0.324324
+_1 0.146341
+_2 0.171429
+_3 0.133333
+_4 0.125
+_5 0.28125
+_6 0.35
+_7 0.315789
+_8 0.451613
+_9 0.179487
+classificationError 24.2525%
+crossEntropyError 1.08339
+------------------------------
+epoch 93 (crossEntropyError)
+_0 0.27027
+_1 0.146341
+_2 0.228571
+_3 0.266667
+_4 0.21875
+_5 0.4375
+_6 0.55
+_7 0.473684
+_8 0.0967742
+_9 0.179487
+classificationError 26.2458%
+crossEntropyError 1.02606
+
+test set errors for best networks
+------------------------------
+epoch 76 (classificationError)
+_0 0.638889
+_1 0.206897
+_2 0.28
+_3 0.28
+_4 0.148148
+_5 0.384615
+_6 0.172414
+_7 0.307692
+_8 0.387097
+_9 0.117647
+classificationError 30.2326%
+crossEntropyError 1.12027
+------------------------------
+epoch 93 (crossEntropyError)
+_0 0.361111
+_1 0.241379
+_2 0.6
+_3 0.44
+_4 0.259259
+_5 0.538462
+_6 0.448276
+_7 0.576923
+_8 0.225806
+_9 0.0882353
+classificationError 37.2093%
+crossEntropyError 1.14628
+

@@ -22,6 +22,7 @@
 import xml.parsers.expat
 import cStringIO
 import gzip as gzipm
+import xml.etree.ElementTree as ET
 
 try:
 	import bz2 as bz2m
@@ -50,8 +51,8 @@ class Point(dict):
 	KEYS = ("x", "y", "pressure", "xtilt", "ytilt", "timestamp")
 
 	def __init__(self, x=None, y=None,
-	             pressure=None, xtilt=None, ytilt=None,
-	             timestamp=None):
+				 pressure=None, xtilt=None, ytilt=None,
+				 timestamp=None):
 		"""
 		@type x: int
 		@type y: int
@@ -113,7 +114,7 @@ class Point(dict):
 		@type dx: int
 		@param dx: relative distance from x
 		@type dy: int
-		@param yrate: relative distance from y
+		@param dy: relative distance from y
 		"""
 		self.x = self.x + dx
 		self.y = self.y + dy
@@ -207,10 +208,19 @@ class Stroke(list):
 			stroke.append_point(p.copy())
 		return stroke
 
+	@staticmethod
+	def from_coordinates(l):
+		stroke = Stroke()
+		for x, y in l:
+			p = Point(x, y)
+			stroke.append_point(p)
+		return stroke
+
 	def get_coordinates(self):
 		"""
 		Return (x,y) coordinates.
 
+		@param lazy: if True returns a generator instead of a list
 		@rtype: a list of tuples
 		"""
 		return [(p.x, p.y) for p in self]
@@ -469,7 +479,7 @@ class Stroke(list):
 				dx = cosalpha * 1.0 / (n + 1) * d
 				dy = sinalpha * 1.0 / (n + 1) * d
 				new_s.append_point(Point(x=int(x1 + j * dx * signx),
-				                         y=int(y1 + j * dy * signy)))
+										 y=int(y1 + j * dy * signy)))
 
 		new_s.append_point(self[-1])
 
@@ -499,11 +509,42 @@ class Writing(object):
 		self._height = Writing.HEIGHT
 		self.clear()
 
+	@staticmethod
+	def from_xml(xml_str):
+		root = ET.fromstring(xml_str)
+		if root.tag != 'writing':
+			raise xml.etree.ElementTree.ParseError('Root element is not writing')
+		if 'type' not in root.attrib:
+			raise xml.etree.ElementTree.ParseError('Writing has no type attribute')
+
+		writing_type = root.attrib['type']
+		writing = Writing()
+		for stroke_elem in root:
+			if stroke_elem.tag != 'stroke':
+				raise xml.etree.ElementTree.ParseError('Invalid element tag ' + stroke_elem.tag)
+			stroke = Stroke()
+			for point_elem in stroke_elem:
+				if point_elem.tag != 'point':
+					raise xml.etree.ElementTree.ParseError('Invalid element tag ' + point_elem.tag)
+				x, y = point_elem.text.strip().split(' ')
+				p = Point(float(x), -float(y))
+				stroke.append(p)
+			writing.append_stroke(stroke)
+		return writing, writing_type
+
+
+
 	def clear(self):
 		"""
 		Remove all strokes from writing.
 		"""
 		self._strokes = []
+
+	def empty(self):
+		if len(self._strokes) == 0:
+			return 1
+		x, y, width, height = self.size()
+		return width == 0 or height == 0
 
 	def get_duration(self):
 		"""
@@ -516,7 +557,7 @@ class Writing(object):
 			if self._strokes[0][0].timestamp is not None and \
 							self._strokes[-1][-1].timestamp is not None:
 				return self._strokes[-1][-1].timestamp - \
-				       self._strokes[0][0].timestamp
+					   self._strokes[0][0].timestamp
 		return None
 
 	def move_to(self, x, y):
@@ -601,6 +642,18 @@ class Writing(object):
 		"""
 		self._strokes.append(stroke)
 
+	def append_pair_list(self, pair_list):
+		"""
+		Add a new stroke.
+
+		@type pair_list: a list of L{Pairs<pair>}
+		"""
+		stroke = Stroke()
+		for pair in pair_list:
+			stroke.append_point(Point(pair[0], pair[1]))
+		self._strokes.append(stroke)
+
+
 	def insert_stroke(self, i, stroke):
 		"""
 		Insert a stroke at a given position.
@@ -661,6 +714,28 @@ class Writing(object):
 			for point in stroke[1:]:
 				point.resize(xrate, yrate)
 
+	def fit_to_box(self, box_w, box_h):
+		"""
+		Resize the writing to the given box sizes
+		and also to retain the current h/w ratio.
+
+		@type box_h: int
+		@param box_h: the height of the containing box.
+		@type box_w: int
+		@param box_w: the width of the containing box.
+		"""
+		x_0, y_0, width, height = self.size()
+		hrate = box_h/float(height)
+		wrate = box_w/float(width)
+
+		if hrate * width < box_w:
+			rate = hrate
+		else:
+			rate = wrate
+
+		self.resize(rate, rate)
+		self._width = box_w
+		self._height = box_h
 
 	def move_rel(self, dx, dy):
 		"""
@@ -688,7 +763,7 @@ class Writing(object):
 		@return: (x,y) are the coordinates of the upper-left point
 		"""
 		xmin, ymin = 4294967296, 4294967296  # 2^32
-		xmax, ymax = 0, 0
+		xmax, ymax = -4294967295, -4294967295
 
 		for stroke in self._strokes:
 			for point in stroke:
@@ -707,8 +782,8 @@ class Writing(object):
 
 		self.move_rel(-x, -y)
 
-		self.set_width(width)
-		self.set_height(height)
+		self._width = width
+		self._height = height
 
 	def is_small(self):
 		"""
@@ -726,13 +801,13 @@ class Writing(object):
 		# 0.44 and 0.56 are used instead of 0.5 to allow the character to go a
 		# little bit beyond the corners
 		return ((x + w <= self.get_width() * 0.56 and
-		         y + h <= 0.56 * self.get_height()) or  # top-left
-		        (x >= 0.44 * self.get_width() and
-		         y + h <= 0.56 * self.get_height()) or  # top-right
-		        (x + w <= self.get_width() * 0.56 and
-		         y >= 0.44 * self.get_height()) or  # bottom-left
-		        (x >= 0.44 * self.get_width() and
-		         y >= 0.44 * self.get_height()))  # bottom-right
+				 y + h <= 0.56 * self.get_height()) or  # top-left
+				(x >= 0.44 * self.get_width() and
+				 y + h <= 0.56 * self.get_height()) or  # top-right
+				(x + w <= self.get_width() * 0.56 and
+				 y >= 0.44 * self.get_height()) or  # bottom-left
+				(x >= 0.44 * self.get_width() and
+				 y >= 0.44 * self.get_height()))  # bottom-right
 
 	def normalize(self):
 		"""
@@ -909,8 +984,8 @@ class Writing(object):
 		@rtype: str
 		"""
 		return "((width %d)(height %d)(strokes %s))" % \
-		       (self._width, self._height,
-		        "".join([s.to_sexp() for s in self._strokes]))
+			   (self._width, self._height,
+				"".join([s.to_sexp() for s in self._strokes]))
 
 	def __eq__(self, othr):
 		if not othr.__class__.__name__ in ("Writing", "WritingProxy"):
@@ -974,8 +1049,18 @@ class Writing(object):
 
 	def __repr__(self):
 		return "<Writing %d strokes (ref %d)>" % (self.get_n_strokes(),
-		                                          id(self))
+												  id(self))
 
+	def remove_empty_strokes(self):
+		i = 0
+		n = len(self._strokes)
+		while i < n:
+			stroke = self._strokes[i]
+			if len(stroke) == 0:
+				self.remove_stroke(i)
+				n -= 1
+			else:
+				i += 1
 
 class _IOBase(object):
 	"""
@@ -1101,7 +1186,7 @@ class _IOBase(object):
 		elif gzip:
 			io = cStringIO.StringIO()
 			f = gzipm.GzipFile(fileobj=io, mode="w",
-			                   compresslevel=compresslevel)
+							   compresslevel=compresslevel)
 			f.write(self.to_str())
 			f.close()
 			return io.getvalue()
@@ -1374,7 +1459,7 @@ class Character(_XmlBase):
 		s = "{"
 
 		attrs = ["\"utf8\" : \"%s\"" % self._utf8,
-		         "\"writing\" : " + self._writing.to_json()]
+				 "\"writing\" : " + self._writing.to_json()]
 
 		s += ", ".join(attrs)
 
@@ -1389,14 +1474,14 @@ class Character(_XmlBase):
 		@rtype: str
 		"""
 		return "(character (value %s)" % self._utf8 + \
-		       self._writing.to_sexp()[1:-1]
+			   self._writing.to_sexp()[1:-1]
 
 	def __eq__(self, char):
 		if not char.__class__.__name__ in ("Character", "CharacterProxy"):
 			return False
 
 		return self._utf8 == char.get_utf8() and \
-		       self._writing == char.get_writing()
+			   self._writing == char.get_writing()
 
 	def __ne__(self, othr):
 		return not (self == othr)
@@ -1427,6 +1512,12 @@ class Character(_XmlBase):
 		c = Character()
 		c.copy_from(self)
 		return c
+
+	def remove_empty_strokes(self):
+		self._writing.remove_empty_strokes()
+
+	def empty(self):
+		return self._writing.empty()
 
 	def __repr__(self):
 		return "<Character %s (ref %d)>" % (str(self.get_utf8()), id(self))

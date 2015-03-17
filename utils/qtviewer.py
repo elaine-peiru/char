@@ -45,8 +45,12 @@
 import os
 
 from PyQt4 import QtCore, QtGui
+import matplotlib.pyplot as plt
+import numpy as np
 
+from recognition.feature_extractor import FeatureExtractor
 from tegaki.charcol import CharacterCollection
+from tegaki.character import *
 from tools.tegaki_render import WritingRender
 
 
@@ -80,6 +84,15 @@ class ImageViewer(QtGui.QMainWindow):
 		self.resize(500, 400)
 
 		self.char_gen = None  # used for self.random
+		self.utf8 = None
+		self.writing = None  # writing(unmodified) of currently displayed character
+		self.norm_writing = None  # writing(normalized) of currently displayed character
+		self.activeWriting = None  # "unmodified" or "normalized"
+		self.extractor = FeatureExtractor(arc_len = 20)
+		char = Character()
+		char.read("test_char.xml")
+		self.display_char(char)
+
 
 	def open(self):
 		fileName = QtGui.QFileDialog.getOpenFileName(self, "Open File",
@@ -101,15 +114,63 @@ class ImageViewer(QtGui.QMainWindow):
 			if not self.fitToWindowAct.isChecked():
 				self.imageLabel.adjustSize()
 
+	def plotWriting(self):
+		for pen_up, stroke in self.pen_up_strokes:
+			points = self.extractor.unique_points(stroke.get_coordinates())
+
+			xs, ys = zip(*points)
+			xs, ys = np.array(xs), np.array(ys)
+
+			plt.plot(xs, ys, 'bo')
+
+		for stroke in self.norm_writing.get_strokes(full = True):
+			points = self.extractor.unique_points(stroke.get_coordinates())
+			xs, ys = zip(*points)
+			xs, ys = np.array(xs), np.array(ys)
+
+			plt.plot(xs, ys, 'ro')
+		plt.show()
+
+	def display_char(self, char):
+		self.utf8 = char.get_utf8()
+		self.writing = char.get_writing()
+		self.writing.crop_to_mbr()
+		self.norm_writing = self.writing.copy()
+		self.activeWriting = "normalized"
+
+		self.norm_writing.fit_to_box(300, 300)
+		self.norm_writing.normalize_position()
+		self.norm_writing.smooth()
+
+		# annotated_points = self.extractor.connect_stroke_endpoints(self.extractor.resample_strokes(self.norm_writing.get_strokes(full=True)))
+		# wr = Writing()
+		# for xs, ys in strokes:
+		# 	s = Stroke()
+		# 	for x, y in zip(xs, ys):
+		# 		s.append_point(Point(x, y))
+		# 	wr.append_stroke(s)
+		#
+		# wr.crop_to_mbr()
+		# self.norm_writing = wr
+
+		# strokes = self.norm_writing.get_strokes(full = True)
+		# self.pen_up_strokes = self.extractor.connect_stroke_endpoints(strokes)
+
+		self.displayWriting(self.norm_writing, self.utf8)
+		# self.plotWriting()
+
 	def random(self):
 		if self.char_gen is None:
 			QtGui.QMessageBox.information(self, 'Request failed', 'No database set.')
+			return
 		rand_char = next(self.char_gen)
-		writing = rand_char.get_writing()
-		writing.crop_to_mbr()
+		self.display_char(rand_char)
+
+
+	def displayWriting(self, writing, utf8):
 		char_drawer = WritingRender(writing)
 
-		self.labelLabel.setText(rand_char.get_utf8())
+		self.labelLabel.setText(utf8)
 
 		self.imageLabel.setPixmap(char_drawer.pixmap)
 		self.scaleFactor = 1.0
@@ -120,6 +181,32 @@ class ImageViewer(QtGui.QMainWindow):
 
 		if not self.fitToWindowAct.isChecked():
 			self.imageLabel.adjustSize()
+
+	def switchWriting(self):
+		print self.activeWriting
+		if self.writing is None or self.norm_writing is None:
+			QtGui.QMessageBox.information(self, 'Request failed', 'Writing is None.')
+			return
+		if self.activeWriting == "normalized":
+			self.activeWriting = "unmodified"
+			self.displayWriting(self.writing, self.utf8)
+		elif self.activeWriting == "unmodified":
+			self.activeWriting = "normalized"
+			self.displayWriting(self.norm_writing, self.utf8)
+
+	def saveImg(self):
+		fName = QtGui.QFileDialog.getSaveFileName(self, "Save writing as PNG file", "Save writing as new file", self.tr("Text Files (*.png)"))
+		if fName.isEmpty() == False:
+			char_drawer = WritingRender(self.norm_writing)
+			annotated_points = self.extractor.connect_stroke_endpoints(self.extractor.resample_strokes(self.norm_writing.get_strokes(full=True)))
+			for pen_down, x, y in annotated_points:
+				if pen_down:
+					char_drawer._painter.setPen(char_drawer._pen)
+				else:
+					char_drawer._painter.setPen(char_drawer._pen2)
+				qp = QtCore.QPoint(x, self.norm_writing.get_height() - y)
+				char_drawer._painter.drawPoint(qp)
+			char_drawer.save(fName)
 
 	def print_(self):
 		dialog = QtGui.QPrintDialog(self.printer, self)
@@ -179,11 +266,17 @@ class ImageViewer(QtGui.QMainWindow):
 		self.randomAct = QtGui.QAction("&Random...", self, shortcut="Ctrl+R",
 		                               triggered=self.random)
 
+		self.switchWritingAct = QtGui.QAction("&Switch Writing...", self, shortcut="Ctrl+S",
+		                                      triggered=self.switchWriting)
+
 		self.openDbAct = QtGui.QAction("Open &Database...", self, shortcut="Ctrl+D",
 		                               triggered=self.changeDatabase)
 
 		self.printAct = QtGui.QAction("&Print...", self, shortcut="Ctrl+P",
 		                              enabled=False, triggered=self.print_)
+
+		self.saveAct = QtGui.QAction("&Save...", self,
+		                              enabled=False, triggered=self.saveImg)
 
 		self.exitAct = QtGui.QAction("E&xit", self, shortcut="Ctrl+Q",
 		                             triggered=self.close)
@@ -195,7 +288,7 @@ class ImageViewer(QtGui.QMainWindow):
 		                                shortcut="Ctrl+-", enabled=False, triggered=self.zoomOut)
 
 		self.normalSizeAct = QtGui.QAction("&Normal Size", self,
-		                                   shortcut="Ctrl+S", enabled=False, triggered=self.normalSize)
+		                                   shortcut="Ctrl+N", enabled=False, triggered=self.normalSize)
 
 		self.fitToWindowAct = QtGui.QAction("&Fit to Window", self,
 		                                    enabled=False, checkable=True, shortcut="Ctrl+F",
@@ -211,8 +304,10 @@ class ImageViewer(QtGui.QMainWindow):
 		self.fileMenu = QtGui.QMenu("&File", self)
 		self.fileMenu.addAction(self.openAct)
 		self.fileMenu.addAction(self.randomAct)
+		self.fileMenu.addAction(self.switchWritingAct)
 		self.fileMenu.addAction(self.openDbAct)
 		self.fileMenu.addAction(self.printAct)
+		self.fileMenu.addAction(self.saveAct)
 		self.fileMenu.addSeparator()
 		self.fileMenu.addAction(self.exitAct)
 
@@ -236,6 +331,7 @@ class ImageViewer(QtGui.QMainWindow):
 		self.zoomInAct.setEnabled(not self.fitToWindowAct.isChecked())
 		self.zoomOutAct.setEnabled(not self.fitToWindowAct.isChecked())
 		self.normalSizeAct.setEnabled(not self.fitToWindowAct.isChecked())
+		self.saveAct.setEnabled(True)
 
 	def scaleImage(self, factor):
 		self.scaleFactor *= factor

@@ -127,7 +127,8 @@ class WritingProxy(ObjectProxy):
 	# Point and Stroke methods that are being used in their implementation.
 
 	WRITE_METHODS = ["clear", "move_to_point", "line_to_point",
-	                 "set_width", "set_height", "remove_stroke"]
+	                 "set_width", "set_height", "remove_stroke",
+	                 "crop_to_mbr", "fit_to_box", "remove_empty_strokes"]
 	READ_METHODS = ["get_strokes"]
 
 
@@ -137,7 +138,7 @@ class CharacterProxy(ObjectProxy):
 	"""
 
 	WRITE_METHODS = ["set_utf8", "set_unicode", "set_writing",
-	                 "read", "read_string"]
+	                 "read", "read_string", "remove_empty_strokes"]
 	READ_METHODS = ["get_writing"]
 
 	def __repr__(self):

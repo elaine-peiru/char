@@ -34,15 +34,21 @@ class WritingRender(object):
 		self.pixmap.fill()
 		self._painter = QPainter(self.pixmap)
 		self._pen = QPen(Qt.black, 3, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
+		self._pen2 = QPen(Qt.darkRed, 4, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
 		self._painter.setPen(self._pen)
 
-		self._drawWriting()
+		# self._drawWriting()
 
 	def _drawWriting(self):
 		for stroke in self._writing.get_strokes():
 			# TODO: give unique color to each stroke
 			qpoints = [QPoint(p[0], self._writing.get_height() - p[1]) for p in stroke]
-			self._painter.drawPolyline(*qpoints)
+			if len(qpoints) <= 1:
+				print 'lone wanderer'
+			# self._painter.setPen(self._pen)
+			# self._painter.drawPolyline(*qpoints)
+			# self._painter.setPen(self._pen2)
+			self._painter.drawPoints(*qpoints)
 
 	def save(self, file):
 		self.pixmap.save(file, 'PNG')

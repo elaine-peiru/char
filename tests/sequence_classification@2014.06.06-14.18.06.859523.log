@@ -1,0 +1,209 @@
+task = sequence_classification
+
+network:
+task = sequence_classification
+13MultilayerNet
+------------------------------
+5 layers:
+10InputLayer "input" 1D (+) size 12
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_0_0" 1D (-) inputSize 140 outputSize 35 source "input" 105 peeps
+(R) 9LstmLayerI4TanhS0_8LogisticE "hidden_0_1" 1D (+) inputSize 140 outputSize 35 source "input" 105 peeps
+13CollapseLayer "output_collapse" 0D size 10 source "hidden_0_1"
+29MulticlassClassificationLayer "output" 0D size 10 source "output_collapse"
+------------------------------
+10 connections:
+"bias_to_hidden_0_0" (140 wts)
+"hidden_0_0_to_hidden_0_0_delay_1" (4900 wts)
+"input_to_hidden_0_0" (1680 wts)
+"bias_to_hidden_0_1" (140 wts)
+"hidden_0_1_to_hidden_0_1_delay_-1" (4900 wts)
+"input_to_hidden_0_1" (1680 wts)
+"bias_to_output" (10 wts)
+"output_collapse_to_output" (copy)
+"hidden_0_0_to_output_collapse" (350 wts)
+"hidden_0_1_to_output_collapse" (350 wts)
+------------------------------
+bidirectional = true
+symmetry = false
+14360 weights
+
+setting random seed to 2278988934
+
+loading dynamic data from sequence_classification@2014.06.03-16.36.14.411949.last.save
+epoch = 6
+
+trainer:
+epoch = 6
+savename = sequence_classification@2014.06.06-14.18.06.859523
+batchLearn = true
+seqsPerWeightUpdate = 1
+maxTestsNoBest = 30
+
+training data:
+numSequences = 9045
+numTimesteps = 313197
+avg timesteps/seq = 34.6265
+1 filenames
+../datasets/12f_train_60.nc
+inputSize = 12
+outputSize = 10
+numDims = 1
+task = sequence_classification
+shuffled = false
+10 target labels
+0 0 (935 = 10.3372%)
+1 1 (983 = 10.8679%)
+2 2 (931 = 10.293%)
+3 3 (908 = 10.0387%)
+4 4 (910 = 10.0608%)
+5 5 (906 = 10.0166%)
+6 6 (856 = 9.46379%)
+7 7 (888 = 9.81758%)
+8 8 (886 = 9.79547%)
+9 9 (842 = 9.30901%)
+totalTargetStringLength = 9045
+------------------------------
+validation data:
+numSequences = 3015
+numTimesteps = 104677
+avg timesteps/seq = 34.7187
+1 filenames
+../datasets/12f_validation_20.nc
+inputSize = 12
+outputSize = 10
+numDims = 1
+task = sequence_classification
+shuffled = false
+10 target labels
+0 0 (297 = 9.85075%)
+1 1 (331 = 10.9784%)
+2 2 (302 = 10.0166%)
+3 3 (300 = 9.95025%)
+4 4 (306 = 10.1493%)
+5 5 (288 = 9.55224%)
+6 6 (290 = 9.61857%)
+7 7 (264 = 8.75622%)
+8 8 (318 = 10.5473%)
+9 9 (319 = 10.5804%)
+totalTargetStringLength = 3015
+------------------------------
+test data:
+numSequences = 3016
+numTimesteps = 103732
+avg timesteps/seq = 34.3939
+1 filenames
+../datasets/12f_test_20.nc
+inputSize = 12
+outputSize = 10
+numDims = 1
+task = sequence_classification
+shuffled = false
+10 target labels
+0 0 (325 = 10.7759%)
+1 1 (332 = 11.008%)
+2 2 (334 = 11.0743%)
+3 3 (294 = 9.74801%)
+4 4 (308 = 10.2122%)
+5 5 (248 = 8.22281%)
+6 6 (290 = 9.61538%)
+7 7 (309 = 10.2454%)
+8 8 (270 = 8.95225%)
+9 9 (306 = 10.1459%)
+totalTargetStringLength = 3016
+
+------------------------------
+RPROP
+online = false
+etaMin = 0.5
+etaPlus = 1.2
+minDelta = 1e-09
+maxDelta = 0.2
+initDelta = 0.01
+------------------------------
+
+autosave filename sequence_classification@2014.06.06-14.18.06.859523.last.save
+best save filename root sequence_classification@2014.06.06-14.18.06.859523.best
+
+training...
+
+epoch 6 took 7 minutes 28.5661 seconds (0.0495927 secs/seq, 698.218 its/sec, 29.17 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 0.952941
+_1 0.449644
+_2 1
+_3 0.998899
+_4 1
+_5 1
+_6 0.491822
+_7 0.998874
+_8 0.85553
+_9 1
+classificationError 87.2858%
+crossEntropyError 5.00345
+------------------------------
+validation errors:
+_0 1
+_1 0.969789
+_2 0.980132
+_3 0.993333
+_4 1
+_5 0.996528
+_6 1
+_7 1
+_8 0
+_9 1
+classificationError 88.8226%
+crossEntropyError 5.38834
+------------------------------
+test errors:
+_0 1
+_1 0.963855
+_2 0.976048
+_3 1
+_4 1
+_5 1
+_6 1
+_7 0.996764
+_8 0
+_9 1
+classificationError 90.3515%
+crossEntropyError 5.34872
+------------------------------
+saving to sequence_classification@2014.06.06-14.18.06.859523.last.save
+best network (classificationError)
+saving to sequence_classification@2014.06.06-14.18.06.859523.best_classificationError.save
+best network (crossEntropyError)
+saving to sequence_classification@2014.06.06-14.18.06.859523.best_crossEntropyError.save
+
+epoch 7 took 7 minutes 26.7634 seconds (0.0493934 secs/seq, 701.035 its/sec, 29.2877 MwtOps/sec)
+------------------------------
+train errors (running):
+_0 1
+_1 0.956256
+_2 0.975295
+_3 0.994493
+_4 1
+_5 0.993377
+_6 1
+_7 1
+_8 0.003386
+_9 1
+classificationError 89.3864%
+crossEntropyError 5.33451
+------------------------------
+validation errors:
+_0 0.420875
+_1 1
+_2 0.427152
+_3 0.873333
+_4 0.705882
+_5 0.3125
+_6 0.865517
+_7 0.882576
+_8 0.940252
+_9 1
+classificationError 74.7927%
+crossEntropyError 2.99204
+------------------------------
+test errors:

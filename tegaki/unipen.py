@@ -203,7 +203,9 @@ class UnipenParser(UnipenEventParser):
 		points = [[int(word) for word in line.split()]
 		          for line in args.strip().split("\n") if line]
 		stroke = Stroke()
-		for x, y in points:
+		for point_tuple in points:
+			x = point_tuple[0]
+			y = point_tuple[1]
 			stroke.append_point(Point(x, y))
 		if len(stroke) > 0:
 			self._strokes.append(stroke)
@@ -225,7 +227,7 @@ class UnipenParser(UnipenEventParser):
 		"""
 		if not self._parsed_file: return
 
-		include_name = args.upper()
+		include_name = args
 		include = os.path.join(self._include_dir, include_name)
 		if not os.path.exists(include):
 			current_dir = os.path.split(self._include_file)[0]
